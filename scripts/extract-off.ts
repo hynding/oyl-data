@@ -38,19 +38,37 @@ if (/^https?:/.test(source)) {
   }
 }
 
+// Always read the live schema first: it's cheap (Parquet footer only) and lets us
+// degrade gracefully when OFF renames or drops a column.
+const schemaRows = (await conn.runAndReadAll(`DESCRIBE SELECT * FROM read_parquet('${source}')`)).getRows();
+const schemaLines = schemaRows.map(([name, type]) => `${name}: ${type}`);
+writeFileSync(resolve(CACHE, 'off-schema.txt'), schemaLines.join('\n') + '\n');
+const liveColumns = new Set(schemaRows.map(([name]) => String(name)));
 if (describe) {
-  const r = await conn.runAndReadAll(`DESCRIBE SELECT * FROM read_parquet('${source}')`);
-  const lines = r.getRows().map(([name, type]) => `${name}: ${type}`);
-  const file = resolve(CACHE, 'off-schema.txt');
-  writeFileSync(file, lines.join('\n') + '\n');
-  console.log(lines.join('\n'));
-  console.log(`\n(saved to ${file})`);
+  console.log(schemaLines.join('\n'));
+  console.log(`\n(saved to ${resolve(CACHE, 'off-schema.txt')})`);
   process.exit(0);
 }
 
+// English text from OFF's list<struct<lang, text>> columns, falling back to the 'main' entry.
+await conn.run(`CREATE MACRO en_text(l) AS coalesce(list_filter(l, x -> x.lang = 'en')[1].text, list_filter(l, x -> x.lang = 'main')[1].text)`);
+
+const missing: string[] = [];
 const sql = readFileSync(resolve(ROOT, 'scripts/extract-off.sql'), 'utf8')
+  .split('\n')
+  .map((line) => {
+    if (!/--\s*optional/.test(line)) return line;
+    const col = optionalColumn(line);
+    if (!col || liveColumns.has(col)) return line;
+    missing.push(col);
+    if (/^\s*AND\b/.test(line)) return '  AND true';
+    const alias = line.match(/\bAS\s+([a-z_]+)/)?.[1] ?? col;
+    return `  NULL AS ${alias},`;
+  })
+  .join('\n')
   .replaceAll('{{SOURCE}}', source)
   .replaceAll('{{LIMIT}}', limit ? `LIMIT ${Number(limit)}` : '');
+if (missing.length) console.log(`not in this Parquet (left NULL): ${missing.join(', ')}`);
 
 console.log(`source: ${source}`);
 console.log(`output: ${out}`);
@@ -73,6 +91,13 @@ for (;;) {
 }
 ws.end();
 console.log(`\n${n.toLocaleString()} products in ${((Date.now() - started) / 1000).toFixed(0)}s`);
+
+/** The column an `-- optional` SQL line depends on: the argument of en_text()/to_json()/coalesce(), else the first identifier. */
+function optionalColumn(line: string): string | null {
+  const fn = line.match(/\b(?:en_text|to_json|coalesce)\(\s*([a-z_]+)/);
+  if (fn) return fn[1];
+  return line.replace(/^\s*AND\s+/, '').match(/^\s*([a-z_]+)/)?.[1] ?? null;
+}
 
 /** DuckDB values → plain JSON (BigInt, LIST, STRUCT wrappers). */
 function normalize(v: unknown): unknown {
