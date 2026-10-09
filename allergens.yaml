@@ -1,0 +1,82 @@
+# Allergens OYL tracks. The nine FDA "major food allergens" (FALCPA + FASTER Act)
+# plus a few common non-US-mandatory ones OFF labels frequently.
+#
+# `off` lists Open Food Facts allergen/trace tags that map to this id.
+# `fda: true` = must be declared on US labels.
+
+- id: milk
+  name: Milk
+  fda: true
+  off: [en:milk]
+
+- id: eggs
+  name: Eggs
+  fda: true
+  off: [en:eggs]
+
+- id: fish
+  name: Fish
+  fda: true
+  off: [en:fish]
+
+- id: shellfish
+  name: Crustacean shellfish
+  fda: true
+  off: [en:crustaceans]
+
+- id: tree_nuts
+  name: Tree nuts
+  fda: true
+  off: [en:nuts]
+
+- id: peanuts
+  name: Peanuts
+  fda: true
+  off: [en:peanuts]
+
+- id: wheat
+  name: Wheat
+  fda: true
+  off: [en:wheat]
+
+- id: soy
+  name: Soybeans
+  fda: true
+  off: [en:soybeans]
+
+- id: sesame
+  name: Sesame
+  fda: true
+  off: [en:sesame-seeds]
+
+# --- Not FDA-mandated, but common on labels and useful for filters ---
+
+- id: gluten
+  name: Gluten
+  fda: false
+  off: [en:gluten]
+
+- id: molluscs
+  name: Molluscs
+  fda: false
+  off: [en:molluscs]
+
+- id: celery
+  name: Celery
+  fda: false
+  off: [en:celery]
+
+- id: mustard
+  name: Mustard
+  fda: false
+  off: [en:mustard]
+
+- id: sulfites
+  name: Sulfites
+  fda: false
+  off: [en:sulphur-dioxide-and-sulphites]
+
+- id: lupin
+  name: Lupin
+  fda: false
+  off: [en:lupin]

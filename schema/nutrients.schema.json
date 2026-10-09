@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Nutrients",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["id", "name", "unit", "dv", "label", "off", "scale", "fdc"],
+    "properties": {
+      "id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+      "name": { "type": "string" },
+      "unit": { "type": "string", "enum": ["g", "mg", "mcg", "kcal"] },
+      "dv": { "type": ["number", "null"], "minimum": 0 },
+      "label": { "type": "string", "enum": ["required", "voluntary", "extra"] },
+      "parent": { "type": "string" },
+      "note": { "type": "string" },
+      "off": { "type": ["string", "null"] },
+      "scale": { "type": "number", "exclusiveMinimum": 0 },
+      "fdc": { "type": ["integer", "null"] }
+    }
+  }
+}

@@ -1,0 +1,109 @@
+# Units used for serving sizes, portions and nutrient amounts.
+#
+# `kind`: mass | volume | energy | count
+# `base`: how many of the kind's base unit (g, ml, kcal, 1) one of this unit is.
+# Mass↔volume conversion needs a density, which lives on the food (`density_g_per_ml`),
+# not here. Count units ("1 egg", "1 slice") are per-food portions, also not here.
+# `aliases` are what shard-products.ts and OYL's serving-size parser match against.
+
+- id: g
+  name: gram
+  kind: mass
+  base: 1
+  aliases: [g, gram, grams, gr]
+
+- id: mg
+  name: milligram
+  kind: mass
+  base: 0.001
+  aliases: [mg, milligram, milligrams]
+
+- id: mcg
+  name: microgram
+  kind: mass
+  base: 0.000001
+  aliases: [mcg, µg, ug, microgram, micrograms]
+
+- id: kg
+  name: kilogram
+  kind: mass
+  base: 1000
+  aliases: [kg, kilogram, kilograms]
+
+- id: oz
+  name: ounce
+  kind: mass
+  base: 28.349523125
+  aliases: [oz, ounce, ounces]
+
+- id: lb
+  name: pound
+  kind: mass
+  base: 453.59237
+  aliases: [lb, lbs, pound, pounds]
+
+- id: ml
+  name: milliliter
+  kind: volume
+  base: 1
+  aliases: [ml, mL, milliliter, milliliters, millilitre, millilitres]
+
+- id: l
+  name: liter
+  kind: volume
+  base: 1000
+  aliases: [l, L, liter, liters, litre, litres]
+
+- id: tsp
+  name: teaspoon
+  kind: volume
+  base: 4.92892159375
+  aliases: [tsp, teaspoon, teaspoons]
+
+- id: tbsp
+  name: tablespoon
+  kind: volume
+  base: 14.78676478125
+  aliases: [tbsp, tbs, tablespoon, tablespoons]
+
+- id: fl_oz
+  name: fluid ounce
+  kind: volume
+  base: 29.5735295625
+  aliases: [fl oz, fl. oz, fl.oz, floz, fluid ounce, fluid ounces]
+
+- id: cup
+  name: cup
+  kind: volume
+  base: 236.5882365
+  aliases: [cup, cups, c]
+
+- id: pint
+  name: pint
+  kind: volume
+  base: 473.176473
+  aliases: [pint, pints, pt]
+
+- id: quart
+  name: quart
+  kind: volume
+  base: 946.352946
+  aliases: [quart, quarts, qt]
+
+- id: gallon
+  name: gallon
+  kind: volume
+  base: 3785.411784
+  aliases: [gallon, gallons, gal]
+
+- id: kcal
+  name: kilocalorie
+  kind: energy
+  base: 1
+  aliases: [kcal, cal, calorie, calories, Cal]
+
+- id: kj
+  name: kilojoule
+  kind: energy
+  base: 0.239005736
+  aliases: [kJ, kj, kilojoule, kilojoules]

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Categories",
+  "type": "array",
+  "items": { "$ref": "#/$defs/category" },
+  "$defs": {
+    "category": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+        "name": { "type": "string" },
+        "off": { "type": "array", "items": { "type": "string", "pattern": "^en:" } },
+        "fdc": { "type": "array", "items": { "type": "string" } },
+        "children": { "type": "array", "items": { "$ref": "#/$defs/category" } }
+      }
+    }
+  }
+}

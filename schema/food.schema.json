@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/hynding/oyl-data/schema/food.schema.json",
+  "title": "Food",
+  "description": "One food record. Every file under foods/ is a YAML list of these. Nutrient keys come from nutrients.yaml and values are in that nutrient's unit; allergen and category ids come from allergens.yaml and categories.yaml.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "kind", "name", "nutrients", "source"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Stable OYL id: '<source>:<source id>', e.g. off:00041196010183 or fdc:171705.",
+      "pattern": "^[a-z]+:[A-Za-z0-9_-]+$"
+    },
+    "kind": {
+      "type": "string",
+      "enum": ["product", "generic"],
+      "description": "product = a branded, barcoded item; generic = an unbranded food (banana, chicken breast, cooked rice)."
+    },
+    "name": { "type": "string", "minLength": 1 },
+    "brand": { "type": "string" },
+    "brand_owner": { "type": "string" },
+    "description": { "type": "string" },
+    "gtin": {
+      "type": "string",
+      "pattern": "^[0-9]{14}$",
+      "description": "Barcode normalized to GTIN-14 (left-padded with zeros). Products only."
+    },
+    "gtin_aliases": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[0-9]{8,14}$" },
+      "description": "Other forms of the same barcode a scanner may produce (UPC-A 12, EAN-13, raw OFF code)."
+    },
+    "quantity": {
+      "type": "string",
+      "description": "Package net quantity as printed, e.g. '15 oz (425 g)'."
+    },
+    "net_grams": { "type": "number", "minimum": 0 },
+    "basis": {
+      "type": "string",
+      "enum": ["100g", "100ml"],
+      "default": "100g",
+      "description": "Whether `nutrients` is per 100 g or per 100 ml."
+    },
+    "density_g_per_ml": { "type": "number", "exclusiveMinimum": 0 },
+    "serving": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "size": { "type": "number", "exclusiveMinimum": 0 },
+        "unit": { "type": "string", "enum": ["g", "ml"] },
+        "description": { "type": "string", "description": "As printed, e.g. '2/3 cup (55g)'." },
+        "per_container": { "type": "number", "exclusiveMinimum": 0 }
+      },
+      "required": ["size", "unit"]
+    },
+    "portions": {
+      "type": "array",
+      "description": "Household measures for logging: '1 medium (118g)', '1 cup, sliced (150g)'.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["description", "grams"],
+        "properties": {
+          "description": { "type": "string" },
+          "grams": { "type": "number", "exclusiveMinimum": 0 },
+          "amount": { "type": "number", "exclusiveMinimum": 0 },
+          "unit": { "type": "string" }
+        }
+      }
+    },
+    "nutrients": {
+      "type": "object",
+      "description": "Per `basis` (100 g by default). Keys are nutrient ids from nutrients.yaml.",
+      "propertyNames": { "pattern": "^[a-z][a-z0-9_]*$" },
+      "additionalProperties": { "type": "number", "minimum": 0 }
+    },
+    "nutrients_per_serving": {
+      "type": "object",
+      "description": "Only when the source provides label-stated per-serving values; otherwise derive from `nutrients` × `serving.size`.",
+      "propertyNames": { "pattern": "^[a-z][a-z0-9_]*$" },
+      "additionalProperties": { "type": "number", "minimum": 0 }
+    },
+    "ingredients": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "text": { "type": "string", "description": "Ingredient statement as printed." },
+        "list": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "allergens": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+    "traces": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+    "categories": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+    "labels": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true,
+      "description": "Claims/certifications as plain slugs: organic, gluten-free, kosher, vegan, non-gmo, ..."
+    },
+    "nova": { "type": "integer", "minimum": 1, "maximum": 4 },
+    "nutriscore": { "type": "string", "enum": ["a", "b", "c", "d", "e"] },
+    "images": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "front": { "type": "string", "format": "uri" },
+        "nutrition": { "type": "string", "format": "uri" },
+        "ingredients": { "type": "string", "format": "uri" }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "id"],
+      "properties": {
+        "name": { "type": "string", "enum": ["off", "fdc", "manual"] },
+        "id": { "type": "string" },
+        "url": { "type": "string", "format": "uri" },
+        "modified": { "type": "string", "format": "date" },
+        "completeness": { "type": "number", "minimum": 0, "maximum": 1 },
+        "license": { "type": "string" }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "kind": { "const": "product" } } },
+      "then": { "required": ["gtin"] }
+    }
+  ]
+}

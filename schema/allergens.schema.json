@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Allergens",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["id", "name", "fda", "off"],
+    "properties": {
+      "id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+      "name": { "type": "string" },
+      "fda": { "type": "boolean" },
+      "off": { "type": "array", "items": { "type": "string", "pattern": "^en:" } }
+    }
+  }
+}

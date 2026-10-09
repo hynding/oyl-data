@@ -1,0 +1,445 @@
+# Canonical nutrient list for OYL.
+#
+# Every nutrient value anywhere in this repo is keyed by an `id` from this file
+# and expressed in that nutrient's `unit`. Sources (OFF, USDA FDC) are mapped
+# onto these ids at extract time; nothing downstream should know source keys.
+#
+# `dv` = FDA Daily Value for adults and children ≥ 4 years (21 CFR 101.9, 2016
+# rule, mandatory since 2020/2021). `null` means no DV is defined (trans fat,
+# total sugars) so no %DV should be shown.
+#
+# `label`: required  → mandatory on a US Nutrition Facts panel
+#          voluntary → may appear on the panel
+#          extra     → not a label nutrient, but useful for diet tracking
+#
+# `off`:  key in Open Food Facts `nutriments` (without the _100g suffix).
+#         OFF stores *_100g mass values in grams regardless of display unit,
+#         and energy-kcal in kcal, so `scale` converts OFF grams → `unit`.
+# `fdc`:  USDA FoodData Central nutrient_id (already in `unit`).
+#
+# Order here is label order; build.ts preserves it as `sort`.
+
+- id: energy
+  name: Calories
+  unit: kcal
+  dv: 2000
+  label: required
+  off: energy-kcal
+  scale: 1
+  fdc: 1008
+
+- id: fat
+  name: Total Fat
+  unit: g
+  dv: 78
+  label: required
+  off: fat
+  scale: 1
+  fdc: 1004
+
+- id: fat_saturated
+  name: Saturated Fat
+  unit: g
+  dv: 20
+  label: required
+  parent: fat
+  off: saturated-fat
+  scale: 1
+  fdc: 1258
+
+- id: fat_trans
+  name: Trans Fat
+  unit: g
+  dv: null
+  label: required
+  parent: fat
+  off: trans-fat
+  scale: 1
+  fdc: 1257
+
+- id: fat_polyunsaturated
+  name: Polyunsaturated Fat
+  unit: g
+  dv: null
+  label: voluntary
+  parent: fat
+  off: polyunsaturated-fat
+  scale: 1
+  fdc: 1293
+
+- id: fat_monounsaturated
+  name: Monounsaturated Fat
+  unit: g
+  dv: null
+  label: voluntary
+  parent: fat
+  off: monounsaturated-fat
+  scale: 1
+  fdc: 1292
+
+- id: cholesterol
+  name: Cholesterol
+  unit: mg
+  dv: 300
+  label: required
+  off: cholesterol
+  scale: 1000
+  fdc: 1253
+
+- id: sodium
+  name: Sodium
+  unit: mg
+  dv: 2300
+  label: required
+  off: sodium
+  scale: 1000
+  fdc: 1093
+
+- id: carbohydrate
+  name: Total Carbohydrate
+  unit: g
+  dv: 275
+  label: required
+  off: carbohydrates
+  scale: 1
+  fdc: 1005
+
+- id: fiber
+  name: Dietary Fiber
+  unit: g
+  dv: 28
+  label: required
+  parent: carbohydrate
+  off: fiber
+  scale: 1
+  fdc: 1079
+
+- id: sugars
+  name: Total Sugars
+  unit: g
+  dv: null
+  label: required
+  parent: carbohydrate
+  off: sugars
+  scale: 1
+  fdc: 2000
+
+- id: sugars_added
+  name: Added Sugars
+  unit: g
+  dv: 50
+  label: required
+  parent: sugars
+  off: added-sugars
+  scale: 1
+  fdc: 1235
+
+- id: sugar_alcohols
+  name: Sugar Alcohols
+  unit: g
+  dv: null
+  label: voluntary
+  parent: carbohydrate
+  off: polyols
+  scale: 1
+  fdc: 1086
+
+- id: protein
+  name: Protein
+  unit: g
+  dv: 50
+  label: required
+  off: proteins
+  scale: 1
+  fdc: 1003
+
+# --- Micronutrients required on the 2016 label ---
+
+- id: vitamin_d
+  name: Vitamin D
+  unit: mcg
+  dv: 20
+  label: required
+  off: vitamin-d
+  scale: 1000000
+  fdc: 1114
+
+- id: calcium
+  name: Calcium
+  unit: mg
+  dv: 1300
+  label: required
+  off: calcium
+  scale: 1000
+  fdc: 1087
+
+- id: iron
+  name: Iron
+  unit: mg
+  dv: 18
+  label: required
+  off: iron
+  scale: 1000
+  fdc: 1089
+
+- id: potassium
+  name: Potassium
+  unit: mg
+  dv: 4700
+  label: required
+  off: potassium
+  scale: 1000
+  fdc: 1092
+
+# --- Voluntary label nutrients ---
+
+- id: vitamin_a
+  name: Vitamin A
+  unit: mcg
+  dv: 900
+  label: voluntary
+  note: mcg RAE
+  off: vitamin-a
+  scale: 1000000
+  fdc: 1106
+
+- id: vitamin_c
+  name: Vitamin C
+  unit: mg
+  dv: 90
+  label: voluntary
+  off: vitamin-c
+  scale: 1000
+  fdc: 1162
+
+- id: vitamin_e
+  name: Vitamin E
+  unit: mg
+  dv: 15
+  label: voluntary
+  note: mg alpha-tocopherol
+  off: vitamin-e
+  scale: 1000
+  fdc: 1109
+
+- id: vitamin_k
+  name: Vitamin K
+  unit: mcg
+  dv: 120
+  label: voluntary
+  off: vitamin-k
+  scale: 1000000
+  fdc: 1185
+
+- id: thiamin
+  name: Thiamin
+  unit: mg
+  dv: 1.2
+  label: voluntary
+  off: vitamin-b1
+  scale: 1000
+  fdc: 1165
+
+- id: riboflavin
+  name: Riboflavin
+  unit: mg
+  dv: 1.3
+  label: voluntary
+  off: vitamin-b2
+  scale: 1000
+  fdc: 1166
+
+- id: niacin
+  name: Niacin
+  unit: mg
+  dv: 16
+  label: voluntary
+  note: mg NE
+  off: vitamin-pp
+  scale: 1000
+  fdc: 1167
+
+- id: vitamin_b6
+  name: Vitamin B6
+  unit: mg
+  dv: 1.7
+  label: voluntary
+  off: vitamin-b6
+  scale: 1000
+  fdc: 1175
+
+- id: folate
+  name: Folate
+  unit: mcg
+  dv: 400
+  label: voluntary
+  note: mcg DFE
+  off: folates
+  scale: 1000000
+  fdc: 1190
+
+- id: vitamin_b12
+  name: Vitamin B12
+  unit: mcg
+  dv: 2.4
+  label: voluntary
+  off: vitamin-b12
+  scale: 1000000
+  fdc: 1178
+
+- id: biotin
+  name: Biotin
+  unit: mcg
+  dv: 30
+  label: voluntary
+  off: biotin
+  scale: 1000000
+  fdc: 1176
+
+- id: pantothenic_acid
+  name: Pantothenic Acid
+  unit: mg
+  dv: 5
+  label: voluntary
+  off: pantothenic-acid
+  scale: 1000
+  fdc: 1170
+
+- id: phosphorus
+  name: Phosphorus
+  unit: mg
+  dv: 1250
+  label: voluntary
+  off: phosphorus
+  scale: 1000
+  fdc: 1091
+
+- id: iodine
+  name: Iodine
+  unit: mcg
+  dv: 150
+  label: voluntary
+  off: iodine
+  scale: 1000000
+  fdc: 1100
+
+- id: magnesium
+  name: Magnesium
+  unit: mg
+  dv: 420
+  label: voluntary
+  off: magnesium
+  scale: 1000
+  fdc: 1090
+
+- id: zinc
+  name: Zinc
+  unit: mg
+  dv: 11
+  label: voluntary
+  off: zinc
+  scale: 1000
+  fdc: 1095
+
+- id: selenium
+  name: Selenium
+  unit: mcg
+  dv: 55
+  label: voluntary
+  off: selenium
+  scale: 1000000
+  fdc: 1103
+
+- id: copper
+  name: Copper
+  unit: mg
+  dv: 0.9
+  label: voluntary
+  off: copper
+  scale: 1000
+  fdc: 1098
+
+- id: manganese
+  name: Manganese
+  unit: mg
+  dv: 2.3
+  label: voluntary
+  off: manganese
+  scale: 1000
+  fdc: 1101
+
+- id: chromium
+  name: Chromium
+  unit: mcg
+  dv: 35
+  label: voluntary
+  off: chromium
+  scale: 1000000
+  fdc: 1096
+
+- id: molybdenum
+  name: Molybdenum
+  unit: mcg
+  dv: 45
+  label: voluntary
+  off: molybdenum
+  scale: 1000000
+  fdc: 1102
+
+- id: chloride
+  name: Chloride
+  unit: mg
+  dv: 2300
+  label: voluntary
+  off: chloride
+  scale: 1000
+  fdc: 1088
+
+- id: choline
+  name: Choline
+  unit: mg
+  dv: 550
+  label: voluntary
+  off: choline
+  scale: 1000
+  fdc: 1180
+
+# --- Extras useful for diet tracking (not label nutrients) ---
+
+- id: water
+  name: Water
+  unit: g
+  dv: null
+  label: extra
+  off: water
+  scale: 1
+  fdc: 1051
+
+- id: caffeine
+  name: Caffeine
+  unit: mg
+  dv: null
+  label: extra
+  off: caffeine
+  scale: 1000
+  fdc: 1057
+
+- id: alcohol
+  name: Alcohol
+  unit: g
+  dv: null
+  label: extra
+  note: OFF reports alcohol as % vol, not grams; shard-products.ts converts using 0.789 g/ml.
+  off: alcohol
+  scale: 1
+  fdc: 1018
+
+- id: omega_3
+  name: Omega-3 Fatty Acids
+  unit: g
+  dv: null
+  label: extra
+  parent: fat_polyunsaturated
+  off: omega-3-fat
+  scale: 1
+  fdc: null

@@ -1,0 +1,96 @@
+# Generic (unbranded) fruits. Values per 100 g from USDA FoodData Central, SR Legacy.
+# Hand-curated starter set; replace/extend with scripts/extract-usda.ts once written.
+
+- id: fdc:173944
+  kind: generic
+  name: Banana, raw
+  basis: 100g
+  portions:
+    - { description: 1 extra small (less than 6" long), grams: 81 }
+    - { description: 1 small (6" to 6-7/8" long), grams: 101 }
+    - { description: 1 medium (7" to 7-7/8" long), grams: 118 }
+    - { description: 1 large (8" to 8-7/8" long), grams: 136 }
+    - { description: 1 extra large (9" or longer), grams: 152 }
+    - { description: "1 cup, sliced", grams: 150, amount: 1, unit: cup }
+    - { description: "1 cup, mashed", grams: 225, amount: 1, unit: cup }
+  nutrients:
+    energy: 89
+    fat: 0.33
+    fat_saturated: 0.112
+    fat_monounsaturated: 0.032
+    fat_polyunsaturated: 0.073
+    cholesterol: 0
+    sodium: 1
+    carbohydrate: 22.84
+    fiber: 2.6
+    sugars: 12.23
+    sugars_added: 0
+    protein: 1.09
+    calcium: 5
+    iron: 0.26
+    potassium: 358
+    magnesium: 27
+    phosphorus: 22
+    zinc: 0.15
+    vitamin_a: 3
+    vitamin_c: 8.7
+    vitamin_e: 0.1
+    vitamin_k: 0.5
+    thiamin: 0.031
+    riboflavin: 0.073
+    niacin: 0.665
+    vitamin_b6: 0.367
+    folate: 20
+    water: 74.91
+  categories: [fruit]
+  source:
+    name: fdc
+    id: "173944"
+    url: https://fdc.nal.usda.gov/food-details/173944/nutrients
+    license: CC0
+
+- id: fdc:171688
+  kind: generic
+  name: Apple, raw, with skin
+  basis: 100g
+  portions:
+    - { description: 1 small (2-3/4" dia), grams: 149 }
+    - { description: 1 medium (3" dia), grams: 182 }
+    - { description: 1 large (3-1/4" dia), grams: 223 }
+    - { description: "1 cup, sliced", grams: 109, amount: 1, unit: cup }
+    - { description: "1 cup, chopped", grams: 125, amount: 1, unit: cup }
+  nutrients:
+    energy: 52
+    fat: 0.17
+    fat_saturated: 0.028
+    fat_monounsaturated: 0.007
+    fat_polyunsaturated: 0.051
+    cholesterol: 0
+    sodium: 1
+    carbohydrate: 13.81
+    fiber: 2.4
+    sugars: 10.39
+    sugars_added: 0
+    protein: 0.26
+    calcium: 6
+    iron: 0.12
+    potassium: 107
+    magnesium: 5
+    phosphorus: 11
+    zinc: 0.04
+    vitamin_a: 3
+    vitamin_c: 4.6
+    vitamin_e: 0.18
+    vitamin_k: 2.2
+    thiamin: 0.017
+    riboflavin: 0.026
+    niacin: 0.091
+    vitamin_b6: 0.041
+    folate: 3
+    water: 85.56
+  categories: [fruit]
+  source:
+    name: fdc
+    id: "171688"
+    url: https://fdc.nal.usda.gov/food-details/171688/nutrients
+    license: CC0

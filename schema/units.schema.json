@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Units",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["id", "name", "kind", "base", "aliases"],
+    "properties": {
+      "id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+      "name": { "type": "string" },
+      "kind": { "type": "string", "enum": ["mass", "volume", "energy", "count"] },
+      "base": { "type": "number", "exclusiveMinimum": 0 },
+      "aliases": { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+    }
+  }
+}

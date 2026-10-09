@@ -1,0 +1,164 @@
+# OYL's own food category tree. Deliberately shallow — it's for browsing and
+# filtering, not taxonomy. Source tags are mapped onto these at extract time:
+#   `off`: Open Food Facts categories_tags (a product matches if ANY tag matches;
+#          the first category in this file that matches wins, so order from
+#          specific to general within a group)
+#   `fdc`: USDA FDC food_category / wweia descriptions (substring, case-insensitive)
+#
+# Products that match nothing get `other`. Grow this file as you see what
+# falls into `other` after a build (scripts/build.ts prints the top unmatched tags).
+
+- id: produce
+  name: Fruits & Vegetables
+  children:
+    - id: fruit
+      name: Fruit
+      off: [en:fruits, en:fresh-fruits, en:dried-fruits, en:fruit-based-foods]
+      fdc: [Fruits and Fruit Juices]
+    - id: vegetable
+      name: Vegetables
+      off: [en:vegetables, en:fresh-vegetables, en:legumes, en:canned-vegetables, en:frozen-vegetables]
+      fdc: [Vegetables and Vegetable Products, Legumes and Legume Products]
+
+- id: protein
+  name: Meat, Fish & Eggs
+  children:
+    - id: meat
+      name: Meat
+      off: [en:meats, en:poultry, en:beef, en:pork, en:prepared-meats]
+      fdc: [Beef Products, Pork Products, Poultry Products, Lamb, Veal, and Game Products, Sausages and Luncheon Meats]
+    - id: seafood
+      name: Fish & Seafood
+      off: [en:seafood, en:fishes, en:canned-fishes]
+      fdc: [Finfish and Shellfish Products]
+    - id: eggs
+      name: Eggs
+      off: [en:eggs]
+      fdc: [Egg]
+    - id: plant_protein
+      name: Plant Protein & Meat Alternatives
+      off: [en:meat-alternatives, en:tofu, en:meat-analogues, en:plant-based-foods-and-beverages]
+
+- id: dairy
+  name: Dairy & Alternatives
+  children:
+    - id: milk
+      name: Milk & Cream
+      off: [en:milks, en:creams]
+      fdc: [Dairy and Egg Products]
+    - id: cheese
+      name: Cheese
+      off: [en:cheeses]
+    - id: yogurt
+      name: Yogurt
+      off: [en:yogurts, en:fermented-milk-products]
+    - id: dairy_alternative
+      name: Plant-Based Dairy
+      off: [en:plant-based-milk-alternatives, en:plant-based-cheese-alternatives, en:non-dairy-yogurts]
+
+- id: grains
+  name: Grains, Bread & Cereal
+  children:
+    - id: bread
+      name: Bread & Bakery
+      off: [en:breads, en:bakery-products]
+      fdc: [Baked Products]
+    - id: cereal
+      name: Breakfast Cereal
+      off: [en:breakfast-cereals]
+      fdc: [Breakfast Cereals]
+    - id: pasta_rice
+      name: Pasta, Rice & Grains
+      off: [en:pastas, en:rices, en:cereal-grains, en:flours]
+      fdc: [Cereal Grains and Pasta]
+
+- id: snacks
+  name: Snacks & Sweets
+  children:
+    - id: chips
+      name: Chips & Crackers
+      off: [en:crisps, en:chips, en:crackers, en:salty-snacks]
+      fdc: [Snacks]
+    - id: candy
+      name: Candy & Chocolate
+      off: [en:confectioneries, en:chocolates, en:candies]
+      fdc: [Sweets]
+    - id: cookies
+      name: Cookies & Pastries
+      off: [en:biscuits-and-cakes, en:cookies, en:cakes, en:pastries]
+    - id: bars
+      name: Bars
+      off: [en:bars, en:cereal-bars, en:protein-bars, en:energy-bars]
+    - id: nuts_seeds
+      name: Nuts & Seeds
+      off: [en:nuts, en:seeds, en:nuts-and-their-products]
+      fdc: [Nut and Seed Products]
+
+- id: beverages
+  name: Beverages
+  children:
+    - id: water
+      name: Water
+      off: [en:waters, en:spring-waters, en:flavored-waters]
+    - id: soda
+      name: Soda & Soft Drinks
+      off: [en:sodas, en:carbonated-drinks, en:energy-drinks, en:sports-drinks]
+    - id: juice
+      name: Juice
+      off: [en:juices, en:fruit-juices, en:nectars]
+    - id: coffee_tea
+      name: Coffee & Tea
+      off: [en:coffees, en:teas, en:iced-teas, en:hot-beverages]
+    - id: alcohol
+      name: Alcoholic Beverages
+      off: [en:alcoholic-beverages, en:beers, en:wines, en:spirits]
+      fdc: [Alcoholic Beverages]
+    - id: beverage_other
+      name: Other Beverages
+      off: [en:beverages]
+      fdc: [Beverages]
+
+- id: meals
+  name: Meals & Prepared Foods
+  children:
+    - id: frozen_meal
+      name: Frozen Meals
+      off: [en:frozen-foods, en:frozen-ready-made-meals]
+    - id: soup
+      name: Soups
+      off: [en:soups]
+      fdc: [Soups, Sauces, and Gravies]
+    - id: prepared
+      name: Prepared & Ready Meals
+      off: [en:meals, en:prepared-meals, en:ready-meals, en:sandwiches, en:pizzas]
+      fdc: [Fast Foods, Restaurant Foods, Meals, Entrees, and Side Dishes]
+
+- id: pantry
+  name: Pantry & Cooking
+  children:
+    - id: condiments
+      name: Condiments & Sauces
+      off: [en:condiments, en:sauces, en:dressings, en:spreads]
+    - id: oils
+      name: Oils & Fats
+      off: [en:fats, en:vegetable-oils, en:butters, en:margarines]
+      fdc: [Fats and Oils]
+    - id: baking
+      name: Baking & Sweeteners
+      off: [en:sugars, en:sweeteners, en:baking-ingredients, en:syrups]
+    - id: spices
+      name: Herbs & Spices
+      off: [en:spices, en:herbs, en:seasonings]
+      fdc: [Spices and Herbs]
+
+- id: baby
+  name: Baby Food
+  off: [en:baby-foods, en:infant-formulas]
+  fdc: [Baby Foods]
+
+- id: supplements
+  name: Supplements
+  off: [en:dietary-supplements, en:food-supplements, en:protein-powders]
+
+- id: other
+  name: Other
