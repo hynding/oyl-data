@@ -1,5 +1,5 @@
 -- Open Food Facts → US, English, reasonably complete products.
--- Run by scripts/extract-off.ts, which substitutes {{SOURCE}} and {{LIMIT}}.
+-- Run by scripts/extract-off.ts, which fills in the SOURCE and LIMIT placeholders below.
 --
 -- Column names follow the Parquet export on Hugging Face
 -- (openfoodfacts/product-database, food.parquet). If a column is missing after an

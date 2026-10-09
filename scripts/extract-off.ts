@@ -49,8 +49,8 @@ if (describe) {
 }
 
 const sql = readFileSync(resolve(ROOT, 'scripts/extract-off.sql'), 'utf8')
-  .replace('{{SOURCE}}', source)
-  .replace('{{LIMIT}}', limit ? `LIMIT ${Number(limit)}` : '');
+  .replaceAll('{{SOURCE}}', source)
+  .replaceAll('{{LIMIT}}', limit ? `LIMIT ${Number(limit)}` : '');
 
 console.log(`source: ${source}`);
 console.log(`output: ${out}`);
