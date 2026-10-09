@@ -7,6 +7,7 @@
   "engines": { "node": ">=22" },
   "packageManager": "pnpm@10.28.0",
   "scripts": {
+    "fetch:off": "mkdir -p .cache && curl -L -C - --retry 5 --retry-delay 10 -o .cache/food.parquet https://huggingface.co/datasets/openfoodfacts/product-database/resolve/main/food.parquet",
     "extract:off": "tsx scripts/extract-off.ts",
     "shard:off": "tsx scripts/shard-products.ts",
     "validate": "tsx scripts/validate.ts",

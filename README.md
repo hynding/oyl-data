@@ -29,16 +29,18 @@ pnpm test        # shard the fixture, validate it — proves the toolchain works
 ## Loading products from Open Food Facts
 
 ```sh
-pnpm extract:off --describe          # 1. print the live Parquet schema (sanity check after OFF changes)
-pnpm extract:off --limit 2000        # 2. sample: US, English, completeness ≥ 0.5 → .cache/off-us.jsonl
-pnpm shard:off --out .cache/preview  # 3. look at the YAML before committing to it
-pnpm extract:off && pnpm shard:off   # 4. the real thing → foods/products/**
-pnpm check                           # 5. validate everything, build dist/oyl-foods.sqlite
+pnpm fetch:off                       # 1. download food.parquet (a few GB, resumable) to .cache/
+pnpm extract:off --describe          # 2. print the Parquet schema (sanity check after OFF changes)
+pnpm extract:off --limit 2000        # 3. sample: US, English, completeness ≥ 0.5 → .cache/off-us.jsonl
+pnpm shard:off --out .cache/preview  # 4. look at the YAML before committing to it
+pnpm extract:off && pnpm shard:off   # 5. the real thing → foods/products/**
+pnpm check                           # 6. validate everything, build dist/oyl-foods.sqlite
 ```
 
-`extract:off` streams the Parquet from Hugging Face with DuckDB and only fetches the
-columns it selects. If you'll rerun it, download `food.parquet` once and pass
-`--source path/to/food.parquet`. The filters live in `scripts/extract-off.sql`.
+`extract:off` uses `.cache/food.parquet` when it exists. Without it, DuckDB streams the
+file from Hugging Face with HTTP range requests, which works for a `--describe` but gets
+rate-limited (HTTP 429) quickly — hence the one-time download. The filters live in
+`scripts/extract-off.sql`; columns marked `-- optional` are nulled if OFF drops them.
 
 After a shard run, the script prints the most common OFF category tags that mapped to
 `other`. Add them to `categories.yaml` and rerun; it's deliberate that the tree starts small.

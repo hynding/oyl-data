@@ -1,8 +1,9 @@
 /**
  * Extract US products from the Open Food Facts Parquet export into .cache/off-us.jsonl.
  *
- *   pnpm extract:off                       # streams from Hugging Face (only needed columns are fetched)
- *   pnpm extract:off --source food.parquet # local copy (faster if you'll rerun)
+ *   pnpm fetch:off                         # one-time download of food.parquet to .cache/ (resumable)
+ *   pnpm extract:off                       # reads .cache/food.parquet if present, else streams from Hugging Face
+ *   pnpm extract:off --source other.parquet
  *   pnpm extract:off --limit 2000          # sample run
  *   pnpm extract:off --describe            # print the live Parquet schema and exit
  *
@@ -10,7 +11,7 @@
  * extract-off.sql. shard-products.ts turns that into YAML.
  */
 import { DuckDBInstance } from '@duckdb/node-api';
-import { mkdirSync, readFileSync, writeFileSync, createWriteStream } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync, createWriteStream } from 'node:fs';
 import { resolve } from 'node:path';
 import { CACHE, ROOT } from './lib.ts';
 
@@ -18,7 +19,9 @@ const HF_URL = 'https://huggingface.co/datasets/openfoodfacts/product-database/r
 
 const args = process.argv.slice(2);
 const opt = (name: string) => { const i = args.indexOf(`--${name}`); return i >= 0 ? args[i + 1] : undefined; };
-const source = opt('source') ?? HF_URL;
+// Prefer a local copy (pnpm fetch:off) — Hugging Face rate-limits DuckDB's many range reads over HTTP.
+const LOCAL = resolve(CACHE, 'food.parquet');
+const source = opt('source') ?? (existsSync(LOCAL) ? LOCAL : HF_URL);
 const limit = opt('limit');
 const describe = args.includes('--describe');
 const out = opt('out') ?? resolve(CACHE, 'off-us.jsonl');
@@ -40,7 +43,13 @@ if (/^https?:/.test(source)) {
 
 // Always read the live schema first: it's cheap (Parquet footer only) and lets us
 // degrade gracefully when OFF renames or drops a column.
-const schemaRows = (await conn.runAndReadAll(`DESCRIBE SELECT * FROM read_parquet('${source}')`)).getRows();
+const schemaRows = await conn.runAndReadAll(`DESCRIBE SELECT * FROM read_parquet('${source}')`).then((r) => r.getRows()).catch((e: Error) => {
+  if (/429/.test(e.message)) {
+    console.error('Hugging Face rate-limited the request. Download the file once instead:\n  pnpm fetch:off\nthen rerun this command (it picks up .cache/food.parquet automatically).');
+    process.exit(2);
+  }
+  throw e;
+});
 const schemaLines = schemaRows.map(([name, type]) => `${name}: ${type}`);
 writeFileSync(resolve(CACHE, 'off-schema.txt'), schemaLines.join('\n') + '\n');
 const liveColumns = new Set(schemaRows.map(([name]) => String(name)));
