@@ -1,0 +1,31 @@
+# Tag a commit (e.g. v2026.10) to build dist/oyl-foods.sqlite and attach it to a GitHub Release.
+# OYL pins a tag and downloads the asset; manifest.json carries schema_version and counts.
+name: release
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm check
+      - run: |
+          cd dist
+          gzip -9 -k oyl-foods.sqlite
+          sha256sum oyl-foods.sqlite oyl-foods.sqlite.gz > SHA256SUMS
+          cat manifest.json
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/oyl-foods.sqlite.gz
+            dist/manifest.json
+            dist/SHA256SUMS
+          body_path: dist/manifest.json
+          generate_release_notes: true

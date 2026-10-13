@@ -3,13 +3,15 @@
  *
  *   pnpm shard:off
  *   pnpm shard:off --in .cache/off-us.jsonl --limit 500 --out /tmp/preview
+ *   pnpm shard:off --force                 # overwrite even if the product count drops > 20%
  *
  * Shard layout: foods/products/<gtin[-3:-1]>/<gtin[-1]>.yaml — 1,000 files keyed on the
  * trailing digits, which spread evenly (GTIN prefixes cluster hard on big brands).
  * Files are rewritten wholesale each run so git diffs show real changes.
  * Each file is a YAML list of Food records (schema/food.schema.json).
  */
-import { createReadStream, mkdirSync, rmSync, writeFileSync } from 'node:fs';
+import fg from 'fast-glob';
+import { createReadStream, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { createInterface } from 'node:readline';
 import { stringify } from 'yaml';
@@ -50,6 +52,24 @@ for await (const line of rl) {
   if (!shards.has(key)) shards.set(key, []);
   shards.get(key)!.push(food);
   kept++;
+}
+
+// Refresh guard: compare against what's already there before overwriting. A large drop
+// almost always means the upstream export or our filter changed, not that products vanished.
+const previous = new Set<string>();
+for (const f of fg.sync('**/*.yaml', { cwd: outDir, absolute: true })) {
+  for (const m of readFileSync(f, 'utf8').matchAll(/^- id: (off:\d{14})$/gm)) previous.add(m[1]);
+}
+if (previous.size) {
+  const current = new Set([...shards.values()].flat().map((f) => f.id));
+  const added = [...current].filter((id) => !previous.has(id)).length;
+  const removed = [...previous].filter((id) => !current.has(id)).length;
+  const dropPct = (100 * (previous.size - current.size)) / previous.size;
+  console.log(`refresh: ${previous.size.toLocaleString()} → ${current.size.toLocaleString()} products (+${added.toLocaleString()} new, −${removed.toLocaleString()} gone)`);
+  if (dropPct > 20 && !args.includes('--force')) {
+    console.error(`refusing to overwrite: product count would fall ${dropPct.toFixed(0)}%. Check the extract filter / OFF schema, or rerun with --force.`);
+    process.exit(3);
+  }
 }
 
 rmSync(outDir, { recursive: true, force: true });

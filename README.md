@@ -64,6 +64,26 @@ After a shard run, the script prints the most common OFF category tags that mapp
   scanner emits, and the SQLite `food_barcodes` table resolves any of them.
 - Every record carries `source` (name, id, url, modified date, completeness, license).
 
+## Refreshing
+
+Quarterly is plenty. Re-download, re-run, let git show the diff:
+
+```sh
+pnpm fetch:off && pnpm extract:off && pnpm shard:off && pnpm check
+git add foods/products && git commit -m "Refresh OFF seed $(date +%Y-%m-%d)"
+```
+
+`shard:off` compares against the existing `foods/products/` first and prints
+`refresh: 27,053 → 27,410 products (+900 new, −543 gone)`. If the count would drop more
+than 20% it refuses — that almost always means OFF changed its export or the filter broke,
+not that products vanished — and `--force` overrides. Ids are `off:<gtin14>` and never
+change, so anything in OYL that references a food survives a refresh; OYL should mark a
+food that disappears from the seed as archived rather than delete it.
+
+To publish a build, tag the commit: `git tag v2026.10 && git push --tags`. The release
+workflow runs `pnpm check` and attaches `oyl-foods.sqlite.gz`, `manifest.json` and
+checksums to a GitHub Release. OYL pins a tag and checks `schema_version` in the manifest.
+
 ## Generic foods (USDA)
 
 OFF is barcode-centric and thin on "banana" or "chicken breast", which is most of what
