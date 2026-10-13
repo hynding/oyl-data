@@ -10,7 +10,7 @@
  *   pnpm extract:off --min-scans 5         # only products scanned by ≥ 5 people (default 2; 0 = no popularity filter)
  *
  * Output is one JSON object per line with the raw OFF columns selected in
- * extract-off.sql. shard-products.ts turns that into YAML.
+ * extract-off.sql. shard-products.ts turns that into nutrition/foods/products/**.
  */
 import { DuckDBInstance } from '@duckdb/node-api';
 import { existsSync, mkdirSync, readFileSync, writeFileSync, createWriteStream } from 'node:fs';
@@ -81,7 +81,7 @@ if (args.includes('--stats')) {
 await conn.run(`CREATE MACRO en_text(l) AS coalesce(list_filter(l, x -> x.lang = 'en')[1].text, list_filter(l, x -> x.lang = 'main')[1].text)`);
 
 const missing: string[] = [];
-const sql = readFileSync(resolve(ROOT, 'scripts/extract-off.sql'), 'utf8')
+const sql = readFileSync(resolve(ROOT, 'scripts/nutrition/extract-off.sql'), 'utf8')
   .split('\n')
   .map((line) => {
     if (!/--\s*optional/.test(line)) return line;

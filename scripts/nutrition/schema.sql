@@ -1,6 +1,5 @@
--- SQLite schema for dist/oyl-foods.sqlite. Mirrors the YAML; OYL reads this, never the YAML.
-
-CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT NOT NULL);
+-- Nutrition tables in dist/oyl-data.sqlite. Mirrors nutrition/**.yaml; OYL reads this, never the YAML.
+-- The `meta` table is created by scripts/build.ts.
 
 CREATE TABLE nutrients (
   id      TEXT PRIMARY KEY,

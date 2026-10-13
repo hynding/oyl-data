@@ -6,23 +6,30 @@ ingredients, allergens, barcodes, categories and household portions, for branded
 (Open Food Facts) and generic foods (USDA). Other domains will follow the same pattern —
 see [CLAUDE.md](CLAUDE.md) for the conventions.
 
-YAML is the source of truth and what you edit or review. `pnpm build` compiles it into
-`dist/oyl-foods.sqlite`, which is what OYL actually loads.
+YAML is the source of truth and what you edit or review. `pnpm build` compiles every
+domain into one `dist/oyl-data.sqlite`, which is what OYL actually loads.
 
 ```
-nutrients.yaml      canonical nutrient ids, units, FDA Daily Values, OFF/USDA key mapping
-units.yaml          g/mg/mcg/ml/oz/cup/tbsp… with conversion factors and aliases
-allergens.yaml      FDA big-9 + common extras, mapped from OFF tags
-categories.yaml     OYL's own shallow category tree, mapped from OFF/USDA
-schema/             JSON Schema for each of the above and for Food records
-foods/generic/      unbranded foods (USDA FDC) — hand-curated YAML lists
-foods/products/     branded US products (Open Food Facts) — generated, 1,000 shards by GTIN
-scripts/            extract → shard → validate → build (+ schema.sql for the SQLite layout)
-tests/fixtures/     a tiny OFF sample that `pnpm test` runs end to end
-.github/workflows/  check on PRs/main; release (SQLite as a GitHub Release asset) on v* tags
-.cache/             gitignored: the 8 GB food.parquet, extracted JSONL, previews
-dist/               gitignored: oyl-foods.sqlite + manifest.json
+nutrition/                  the nutrition domain
+  nutrients.yaml            canonical nutrient ids, units, FDA Daily Values, OFF/USDA key mapping
+  units.yaml                g/mg/mcg/ml/oz/cup/tbsp… with conversion factors and aliases
+  allergens.yaml            FDA big-9 + common extras, mapped from OFF tags
+  categories.yaml           OYL's own shallow category tree, mapped from OFF/USDA
+  schema/                   JSON Schema for each of the above and for Food records
+  foods/generic/            unbranded foods (USDA FDC) — hand-curated YAML lists
+  foods/products/           branded US products (Open Food Facts) — generated, 1,000 shards by GTIN
+scripts/
+  lib.ts                    paths, YAML loader, CLI helpers shared by every domain
+  validate.ts, build.ts     orchestrators: call each domain's validate/build, write the manifest
+  nutrition/                extract-off.{ts,sql} → shard-products.ts → validate.ts → build.ts + schema.sql
+tests/fixtures/<domain>/    a tiny source sample that `pnpm test` runs end to end
+.github/workflows/          check on PRs/main; release (SQLite as a GitHub Release asset) on v* tags
+.cache/                     gitignored: the 8 GB food.parquet, extracted JSONL, previews
+dist/                       gitignored: oyl-data.sqlite + manifest.json
 ```
+
+A second domain gets its own top-level directory, `scripts/<domain>/`, and its tables in the
+same SQLite — see [CLAUDE.md](CLAUDE.md) for the recipe.
 
 ## Setup
 
@@ -38,8 +45,8 @@ pnpm fetch:off                       # 1. download food.parquet (a few GB, resum
 pnpm extract:off --describe          # 2. print the Parquet schema (sanity check after OFF changes)
 pnpm extract:off --limit 2000        # 3. sample → .cache/off-us.jsonl (US, English, completeness ≥ 0.5, scans ≥ 2)
 pnpm shard:off --out .cache/preview  # 4. look at the YAML before committing to it
-pnpm extract:off && pnpm shard:off   # 5. the real thing → foods/products/**
-pnpm check                           # 6. typecheck, validate everything, build dist/oyl-foods.sqlite
+pnpm extract:off && pnpm shard:off   # 5. the real thing → nutrition/foods/products/**
+pnpm check                           # 6. typecheck, validate everything, build dist/oyl-data.sqlite
 ```
 
 ### How much to seed
@@ -55,15 +62,15 @@ the result; this repo is the hot set, not the universe.
 `extract:off` uses `.cache/food.parquet` when it exists. Without it, DuckDB streams the
 file from Hugging Face with HTTP range requests, which works for a `--describe` but gets
 rate-limited (HTTP 429) quickly — hence the one-time download. The filters live in
-`scripts/extract-off.sql`; columns marked `-- optional` are nulled if OFF drops them.
+`scripts/nutrition/extract-off.sql`; columns marked `-- optional` are nulled if OFF drops them.
 
 After a shard run, the script prints the most common OFF category tags that mapped to
-`other`. Add them to `categories.yaml` and rerun; it's deliberate that the tree starts small.
+`other`. Add them to `nutrition/categories.yaml` and rerun; it's deliberate that the tree starts small.
 
 ### How values are normalized
 
 - Nutrients are stored **per 100 g** (or per 100 ml for liquids — see `basis`), in the
-  unit declared in `nutrients.yaml`. OFF stores every mass value in grams; `scale` rescales
+  unit declared in `nutrition/nutrients.yaml`. OFF stores every mass value in grams; `scale` rescales
   to mg/mcg. `nutrients_per_serving` is only filled when the source states it.
 - Barcodes are normalized to **GTIN-14**; `gtin_aliases` lists the UPC-A/EAN-13 forms a
   scanner emits, and the SQLite `food_barcodes` table resolves any of them.
@@ -75,10 +82,10 @@ Quarterly is plenty. Re-download, re-run, let git show the diff:
 
 ```sh
 pnpm fetch:off && pnpm extract:off && pnpm shard:off && pnpm check
-git add foods/products && git commit -m "Refresh OFF seed $(date +%Y-%m-%d)"
+git add nutrition/foods/products && git commit -m "Refresh OFF seed $(date +%Y-%m-%d)"
 ```
 
-`shard:off` compares against the existing `foods/products/` first and prints
+`shard:off` compares against the existing `nutrition/foods/products/` first and prints
 `refresh: 27,053 → 27,410 products (+900 new, −543 gone)`. If the count would drop more
 than 20% it refuses — that almost always means OFF changed its export or the filter broke,
 not that products vanished — and `--force` overrides. Ids are `off:<gtin14>` and never
@@ -86,14 +93,14 @@ change, so anything in OYL that references a food survives a refresh; OYL should
 food that disappears from the seed as archived rather than delete it.
 
 To publish a build, tag the commit: `git tag v2026.10 && git push --tags`. The release
-workflow runs `pnpm check` and attaches `oyl-foods.sqlite.gz`, `manifest.json` and
+workflow runs `pnpm check` and attaches `oyl-data.sqlite.gz`, `manifest.json` and
 checksums to a GitHub Release. OYL pins a tag and checks `schema_version` in the manifest.
 
 ## Generic foods (USDA)
 
 OFF is barcode-centric and thin on "banana" or "chicken breast", which is most of what
-people log by hand. `foods/generic/` fills that gap from USDA FoodData Central (public
-domain). It's hand-curated for now; a `scripts/extract-usda.ts` over the FDC CSV
+people log by hand. `nutrition/foods/generic/` fills that gap from USDA FoodData Central (public
+domain). It's hand-curated for now; a `scripts/nutrition/extract-usda.ts` over the FDC CSV
 export (Foundation + SR Legacy, with their `food_portion` table) is the next step.
 
 ## Using the build
@@ -120,8 +127,8 @@ JOIN food_nutrients fn ON fn.food_id = f.id JOIN nutrients n ON n.id = fn.nutrie
 WHERE f.id = 'fdc:173944' AND n.id IN ('energy', 'protein', 'fiber');
 ```
 
-`manifest.json` next to the SQLite carries `schema_version`, counts and a build timestamp;
-check `schema_version` before loading.
+`manifest.json` next to the SQLite carries a top-level `schema_version`, per-domain versions
+and counts, and a build timestamp; check `schema_version` before loading.
 
 ## Licenses
 
