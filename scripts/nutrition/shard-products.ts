@@ -11,12 +11,12 @@
  * Each file is a YAML list of Food records (schema/food.schema.json).
  */
 import fg from 'fast-glob';
-import { createReadStream, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { createReadStream, mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { createInterface } from 'node:readline';
 import { stringify } from 'yaml';
 import {
-  CACHE, DOMAIN_DIR, loadRefs, makeOffAllergenMatcher, makeOffCategoryMatcher,
+  CACHE, DOMAIN_DIR, loadRefs, refreshGuard, makeOffAllergenMatcher, makeOffCategoryMatcher,
   parseServing, toGtin14, gtinAliases, round, slug, type Food,
 } from './lib.ts';
 
@@ -54,23 +54,7 @@ for await (const line of rl) {
   kept++;
 }
 
-// Refresh guard: compare against what's already there before overwriting. A large drop
-// almost always means the upstream export or our filter changed, not that products vanished.
-const previous = new Set<string>();
-for (const f of fg.sync('**/*.yaml', { cwd: outDir, absolute: true })) {
-  for (const m of readFileSync(f, 'utf8').matchAll(/^- id: (off:\d{14})$/gm)) previous.add(m[1]);
-}
-if (previous.size) {
-  const current = new Set([...shards.values()].flat().map((f) => f.id));
-  const added = [...current].filter((id) => !previous.has(id)).length;
-  const removed = [...previous].filter((id) => !current.has(id)).length;
-  const dropPct = (100 * (previous.size - current.size)) / previous.size;
-  console.log(`refresh: ${previous.size.toLocaleString()} → ${current.size.toLocaleString()} products (+${added.toLocaleString()} new, −${removed.toLocaleString()} gone)`);
-  if (dropPct > 20 && !args.includes('--force')) {
-    console.error(`refusing to overwrite: product count would fall ${dropPct.toFixed(0)}%. Check the extract filter / OFF schema, or rerun with --force.`);
-    process.exit(3);
-  }
-}
+refreshGuard(outDir, [...shards.values()].flat().map((f) => f.id), args.includes('--force'));
 
 // Clear only the generated shard directories (NN/), leaving README.md and anything curated alone.
 for (const d of fg.sync('[0-9][0-9]', { cwd: outDir, onlyDirectories: true, absolute: true })) rmSync(d, { recursive: true, force: true });

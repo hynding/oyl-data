@@ -3,7 +3,9 @@
 #   `off`: Open Food Facts categories_tags (a product matches if ANY tag matches;
 #          the first category in this file that matches wins, so order from
 #          specific to general within a group)
-#   `fdc`: USDA FDC food_category / wweia descriptions (substring, case-insensitive)
+#   `fdc`: USDA FDC food_category (SR Legacy/Foundation) or WWEIA category (FNDDS)
+#          descriptions — case-insensitive substring; first category in file order wins,
+#          so put specific needles ("Fast Foods") before general ones ("Foods")
 #
 # Products that match nothing get `other`. Grow this file as you see what
 # falls into `other` after a build (scripts/build.ts prints the top unmatched tags).
@@ -17,11 +19,11 @@
     - id: fruit
       name: Fruit
       off: [en:fruits, en:fresh-fruits, en:dried-fruits, en:fruit-based-foods]
-      fdc: [Fruits and Fruit Juices]
+      fdc: [Fruits and Fruit Juices, Apples, Bananas, Grapes, Peaches and nectarines, Berries, Citrus fruits, Melons, Dried fruits, Other fruits, Pears, Pineapple, Mango and papaya, fruit salads]
     - id: vegetable
       name: Vegetables
       off: [en:vegetables, en:fresh-vegetables, en:legumes, en:canned-vegetables, en:frozen-vegetables]
-      fdc: [Vegetables and Vegetable Products, Legumes and Legume Products]
+      fdc: [Vegetables and Vegetable Products, Legumes and Legume Products, Tomatoes, Carrots, red and orange vegetables, Dark green vegetables, Lettuce, String beans, Onions, Corn, starchy vegetables, Other vegetables, Fried vegetables, Vegetables on a sandwich, White potatoes, French fries, Mashed potatoes, Beans, peas, legumes, Vegetable dishes, Bean, pea, legume dishes, Olives, pickles]
 
 - id: protein
   name: Meat, Fish & Eggs
@@ -29,18 +31,19 @@
     - id: meat
       name: Meat
       off: [en:meats, en:meats-and-their-products, en:poultry, en:beef, en:pork, en:prepared-meats]
-      fdc: [Beef Products, Pork Products, Poultry Products, Lamb, Veal, and Game Products, Sausages and Luncheon Meats]
+      fdc: [Beef Products, Pork Products, Poultry Products, Lamb, Veal, and Game Products, Sausages and Luncheon Meats, Beef, excludes ground, Ground beef, Pork, Lamb, goat, game, Chicken, Turkey, duck, other poultry, Cold cuts and cured meats, Bacon, Frankfurters, Sausages, Meat mixed dishes, Poultry mixed dishes]
     - id: seafood
       name: Fish & Seafood
       off: [en:seafood, en:fishes, en:canned-fishes]
-      fdc: [Finfish and Shellfish Products]
+      fdc: [Finfish and Shellfish Products, Fish, Shellfish, Seafood mixed dishes]
     - id: eggs
       name: Eggs
       off: [en:eggs]
-      fdc: [Egg]
+      fdc: [Eggs and omelets]
     - id: plant_protein
       name: Plant Protein & Meat Alternatives
       off: [en:meat-alternatives, en:tofu, en:meat-analogues, en:plant-based-foods-and-beverages]
+      fdc: [Processed soy products, Meat substitutes]
 
 - id: dairy
   name: Dairy & Alternatives
@@ -48,19 +51,23 @@
     - id: milk
       name: Milk & Cream
       off: [en:milks, en:creams]
-      fdc: [Dairy and Egg Products]
+      fdc: [Dairy and Egg Products, Milk, whole, Milk, reduced fat, Milk, lowfat, Milk, nonfat, Flavored milk, Milk shakes, Cream and cream substitutes]
     - id: cheese
       name: Cheese
       off: [en:cheeses]
+      fdc: [Cheese, Cottage/ricotta cheese, Cream cheese, sour cream]
     - id: yogurt
       name: Yogurt
       off: [en:yogurts, en:fermented-milk-products]
+      fdc: [Yogurt]
     - id: dairy_alternative
       name: Plant-Based Dairy
       off: [en:plant-based-milk-alternatives, en:plant-based-cheese-alternatives, en:non-dairy-yogurts]
+      fdc: [Milk substitutes]
     - id: dairy_other
       name: Other Dairy
       off: [en:dairies, en:dairy-desserts, en:ice-creams-and-sorbets, en:ice-cream]
+      fdc: [Ice cream and frozen dairy desserts, Pudding]
 
 - id: grains
   name: Grains, Bread & Cereal
@@ -68,15 +75,15 @@
     - id: bread
       name: Bread & Bakery
       off: [en:breads, en:bakery-products]
-      fdc: [Baked Products]
+      fdc: [Baked Products, Yeast breads, Rolls and buns, Bagels and English muffins, Tortillas, Biscuits, muffins, quick breads, Pancakes, waffles, French toast]
     - id: cereal
       name: Breakfast Cereal
       off: [en:breakfast-cereals]
-      fdc: [Breakfast Cereals]
+      fdc: [Breakfast Cereals, Ready-to-eat cereal, Oatmeal, Grits and other cooked cereals]
     - id: pasta_rice
       name: Pasta, Rice & Grains
       off: [en:pastas, en:rices, en:cereal-grains, en:flours]
-      fdc: [Cereal Grains and Pasta]
+      fdc: [Cereal Grains and Pasta, Rice, Pasta, noodles, cooked grains]
 
 - id: snacks
   name: Snacks & Sweets
@@ -87,24 +94,26 @@
     - id: chips
       name: Chips & Crackers
       off: [en:salty-snacks, en:salted-snacks, en:Salted snacks, en:crisps, en:chips, en:chips-and-fries, en:crackers, en:popcorn, en:pretzels]
-      fdc: [Snacks]
+      fdc: [Snacks, Potato chips, Tortilla, corn, other chips, Popcorn, Pretzels/snack mix, Crackers, Saltine crackers]
     - id: candy
       name: Candy & Chocolate
       off: [en:sweet-snacks, en:confectioneries, en:chocolates, en:candies, en:chewing-gum]
-      fdc: [Sweets]
+      fdc: [Sweets, Candy]
     - id: desserts
       name: Desserts & Puddings
       off: [en:desserts, en:puddings, en:dessert-mixes, en:frozen-desserts, en:sweet-pies, en:pies]
     - id: cookies
       name: Cookies & Pastries
       off: [en:biscuits-and-cakes, en:cookies, en:cakes, en:pastries]
+      fdc: [Cakes and pies, Cookies and brownies, Doughnuts, sweet rolls, pastries]
     - id: bars
       name: Bars
       off: [en:bars, en:snack-bar, en:snack-bars, en:cereal-bars, en:protein-bars, en:energy-bars, en:granola-bars]
+      fdc: [Cereal bars, Nutrition bars]
     - id: nuts_seeds
       name: Nuts & Seeds
       off: [en:nuts, en:seeds, en:nuts-and-their-products]
-      fdc: [Nut and Seed Products]
+      fdc: [Nut and Seed Products, Nuts and seeds]
 
 - id: beverages
   name: Beverages
@@ -112,38 +121,46 @@
     - id: water
       name: Water
       off: [en:waters, en:spring-waters, en:flavored-waters]
+      fdc: [Tap water, Bottled water, Flavored or carbonated water, Enhanced water]
     - id: soda
       name: Soda & Soft Drinks
       off: [en:sodas, en:carbonated-drinks, en:energy-drinks, en:sports-drinks]
+      fdc: [Soft drinks, Diet soft drinks, Energy drinks, Diet energy drinks, Sport and energy drinks, Sport drinks]
     - id: juice
       name: Juice
       off: [en:juices, en:fruit-juices, en:nectars]
+      fdc: [Apple juice, Citrus juice, Other fruit juice, Fruit drinks, Smoothies and grain drinks, Vegetable juice]
     - id: coffee_tea
       name: Coffee & Tea
       off: [en:coffees, en:teas, en:iced-teas, en:hot-beverages, en:cocoa-and-chocolate-powders, en:instant-beverages, en:beverage-preparations, en:drink-mixes]
+      fdc: [Coffee, Tea]
     - id: alcohol
       name: Alcoholic Beverages
       off: [en:alcoholic-beverages, en:beers, en:wines, en:spirits]
-      fdc: [Alcoholic Beverages]
+      fdc: [Alcoholic Beverages, Beer, Wine, Liquor and cocktails]
     - id: beverage_other
       name: Other Beverages
       off: [en:beverages, en:beverages-and-beverages-preparations]
-      fdc: [Beverages]
+      fdc: [Beverages, Nutritional beverages]
 
 - id: meals
   name: Meals & Prepared Foods
   children:
+    - id: restaurant
+      name: Restaurant & Fast Food
+      off: [en:fast-foods, en:restaurant-foods]
+      fdc: [Fast Foods, Restaurant Foods]
     - id: frozen_meal
       name: Frozen Meals
       off: [en:frozen-foods, en:frozen-ready-made-meals]
     - id: soup
       name: Soups
       off: [en:soups, en:broths, en:stocks, en:bouillon]
-      fdc: [Soups, Sauces, and Gravies]
+      fdc: [Soups, Sauces, and Gravies, Soups]
     - id: prepared
       name: Prepared & Ready Meals
       off: [en:composite-foods, en:meals, en:prepared-meals, en:ready-meals, en:entrees, en:sandwiches, en:pizzas, en:appetizers-sides, en:side-dishes, en:stuffing, en:salads, en:mexican-dinner-mixes, en:meal-kits, en:dinner-mixes]
-      fdc: [Fast Foods, Restaurant Foods, Meals, Entrees, and Side Dishes]
+      fdc: [Meals, Entrees, and Side Dishes, Pizza, Burgers, Egg/breakfast sandwiches, Frankfurter sandwiches, Chicken/turkey sandwiches, Other sandwiches, Nachos, Tacos and burritos, Other Mexican mixed dishes, Fried rice and lo/chow mein, Stir-fry, Macaroni and cheese, Pasta mixed dishes, Rice mixed dishes, Mixed dishes]
 
 - id: pantry
   name: Pantry & Cooking
@@ -151,13 +168,15 @@
     - id: condiments
       name: Condiments & Sauces
       off: [en:condiments, en:sauces, en:dressings, en:spreads]
+      fdc: [Mayonnaise, Salad dressings, Dips, gravies, other sauces, Pasta sauces, Soy-based condiments, Ketchup, Mustard, Condiments]
     - id: oils
       name: Oils & Fats
       off: [en:fats, en:vegetable-oils, en:butters, en:margarines]
-      fdc: [Fats and Oils]
+      fdc: [Fats and Oils, Butter and animal fats, Margarine, vegetable oils]
     - id: baking
       name: Baking & Sweeteners
       off: [en:sugars, en:sweeteners, en:baking-ingredients, en:syrups, en:baking-decorations, en:cooking-helpers, en:cooking-aids, en:mixes, en:toppings-ingredients, en:toppings, en:food-additives, en:cocoa-and-its-products, en:cocoa]
+      fdc: [Sugars and honey, Sugar substitutes, Jams, syrups, toppings]
     - id: spices
       name: Herbs & Spices
       off: [en:spices, en:herbs, en:seasonings]
@@ -166,11 +185,12 @@
 - id: baby
   name: Baby Food
   off: [en:baby-foods, en:infant-formulas]
-  fdc: [Baby Foods]
+  fdc: [Baby Foods, Baby food, Infant formulas]
 
 - id: supplements
   name: Supplements
   off: [en:dietary-supplements, en:food-supplements, en:supplement, en:protein-supplement, en:protein-powders, en:protein-powder, en:drink-mix]
+  fdc: [Protein and nutritional powders]
 
 - id: other
   name: Other

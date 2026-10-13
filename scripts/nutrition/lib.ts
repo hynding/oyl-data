@@ -1,4 +1,6 @@
 /** Nutrition domain: types, reference-table loaders, OFF matchers, barcode and serving helpers. */
+import fg from 'fast-glob';
+import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { ROOT, loadYaml, round } from '../lib.ts';
 export { ROOT, CACHE, DIST, loadYaml, round, slug, args, opt, flag } from '../lib.ts';
@@ -9,7 +11,7 @@ export const DOMAIN_DIR = resolve(ROOT, DOMAIN);
 export type Nutrient = {
   id: string; name: string; unit: 'g' | 'mg' | 'mcg' | 'kcal'; dv: number | null;
   label: 'required' | 'voluntary' | 'extra'; parent?: string; note?: string;
-  off: string | null; scale: number; fdc: number | null;
+  off: string | null; scale: number; fdc: number | number[] | null;
 };
 export type Unit = { id: string; name: string; kind: string; base: number; aliases: string[] };
 export type Allergen = { id: string; name: string; fda: boolean; off: string[] };
@@ -26,7 +28,7 @@ export type Food = {
   allergens?: string[]; traces?: string[]; categories?: string[]; labels?: string[];
   nova?: number; nutriscore?: string;
   images?: { front?: string; nutrition?: string; ingredients?: string };
-  source: { name: 'off' | 'fdc' | 'manual'; id: string; url?: string; modified?: string; completeness?: number; license?: string };
+  source: { name: 'off' | 'fdc' | 'manual'; id: string; dataset?: string; url?: string; modified?: string; completeness?: number; license?: string };
 };
 
 export function loadRefs() {
@@ -112,3 +114,34 @@ export function parseServing(text: string | null | undefined, units: Unit[]): { 
 }
 
 
+
+/** Case-insensitive substring matcher from FDC / WWEIA category descriptions → OYL category id (first match in file order). */
+export function makeFdcCategoryMatcher(cats: Category[]) {
+  const rules = flattenCategories(cats).flatMap((c) => c.fdc.map((needle) => [needle.toLowerCase(), c.id] as const));
+  return (description: string | null | undefined): string => {
+    const d = (description ?? '').toLowerCase();
+    for (const [needle, id] of rules) if (d.includes(needle)) return id;
+    return 'other';
+  };
+}
+
+/**
+ * Refresh guard shared by the shard scripts: compare the ids about to be written with the
+ * ids already under `dir`, print the delta, and exit 3 on a > 20% drop unless --force.
+ */
+export function refreshGuard(dir: string, currentIds: Iterable<string>, force: boolean): void {
+  const previous = new Set<string>();
+  for (const f of fg.sync('**/*.yaml', { cwd: dir, absolute: true })) {
+    for (const m of readFileSync(f, 'utf8').matchAll(/^- id: ([a-z]+:[A-Za-z0-9_-]+)$/gm)) previous.add(m[1]);
+  }
+  if (!previous.size) return;
+  const current = new Set(currentIds);
+  const added = [...current].filter((id) => !previous.has(id)).length;
+  const removed = [...previous].filter((id) => !current.has(id)).length;
+  const dropPct = (100 * (previous.size - current.size)) / previous.size;
+  console.log(`refresh: ${previous.size.toLocaleString()} → ${current.size.toLocaleString()} records (+${added.toLocaleString()} new, −${removed.toLocaleString()} gone)`);
+  if (dropPct > 20 && !force) {
+    console.error(`refusing to overwrite: record count would fall ${dropPct.toFixed(0)}%. Check the extract / upstream schema, or rerun with --force.`);
+    process.exit(3);
+  }
+}

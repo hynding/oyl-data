@@ -16,7 +16,7 @@
       "note": { "type": "string" },
       "off": { "type": ["string", "null"] },
       "scale": { "type": "number", "exclusiveMinimum": 0 },
-      "fdc": { "type": ["integer", "null"] }
+      "fdc": { "oneOf": [{ "type": "integer" }, { "type": "array", "items": { "type": "integer" }, "minItems": 1 }, { "type": "null" }] }
     }
   }
 }

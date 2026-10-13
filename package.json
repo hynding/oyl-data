@@ -10,11 +10,16 @@
     "fetch:off": "mkdir -p .cache && curl -L -C - --retry 5 --retry-delay 10 -o .cache/food.parquet https://huggingface.co/datasets/openfoodfacts/product-database/resolve/main/food.parquet",
     "extract:off": "tsx scripts/nutrition/extract-off.ts",
     "shard:off": "tsx scripts/nutrition/shard-products.ts",
+    "fetch:usda": "bash scripts/nutrition/fetch-usda.sh",
+    "extract:usda": "tsx scripts/nutrition/extract-usda.ts",
+    "shard:usda": "tsx scripts/nutrition/shard-generic.ts",
     "validate": "tsx scripts/validate.ts",
     "build": "tsx scripts/build.ts",
     "typecheck": "tsc -p tsconfig.json",
     "check": "pnpm typecheck && pnpm validate && pnpm build",
-    "test": "tsx scripts/nutrition/shard-products.ts --in tests/fixtures/nutrition/off-sample.jsonl --out .cache/test-products && tsx scripts/validate.ts --quick --dir .cache/test-products"
+    "test": "pnpm -s test:off && pnpm -s test:usda",
+    "test:off": "tsx scripts/nutrition/shard-products.ts --in tests/fixtures/nutrition/off-sample.jsonl --out .cache/test-products && tsx scripts/validate.ts --quick --dir .cache/test-products",
+    "test:usda": "tsx scripts/nutrition/extract-usda.ts --source tests/fixtures/nutrition/usda --out .cache/test-usda.jsonl && tsx scripts/nutrition/shard-generic.ts --in .cache/test-usda.jsonl --out .cache/test-generic && tsx scripts/validate.ts --quick --dir .cache/test-generic"
   },
   "dependencies": {
     "@duckdb/node-api": "^1.5.6-r.1",

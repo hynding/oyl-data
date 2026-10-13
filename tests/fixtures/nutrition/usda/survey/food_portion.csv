@@ -1,0 +1,4 @@
+"id","fdc_id","seq_num","amount","measure_unit_id","portion_description","modifier","gram_weight","data_points","footnote","min_year_acquired"
+"1","2341234","1","1","9999","1 cup, sliced","10205","150","","",""
+"2","2345678","1","1","9999","1 sandwich","61935","155","","",""
+"3","2345679","1","1","9999","1 cup","10205","158","","",""

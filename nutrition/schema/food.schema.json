@@ -116,6 +116,7 @@
       "properties": {
         "name": { "type": "string", "enum": ["off", "fdc", "manual"] },
         "id": { "type": "string" },
+        "dataset": { "type": "string", "description": "Sub-dataset within the source, e.g. fdc: foundation | sr_legacy | survey." },
         "url": { "type": "string", "format": "uri" },
         "modified": { "type": "string", "format": "date" },
         "completeness": { "type": "number", "minimum": 0, "maximum": 1 },

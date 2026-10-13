@@ -15,7 +15,8 @@
 # `off`:  key in Open Food Facts `nutriments` (without the _100g suffix).
 #         OFF stores *_100g mass values in grams regardless of display unit,
 #         and energy-kcal in kcal, so `scale` converts OFF grams → `unit`.
-# `fdc`:  USDA FoodData Central nutrient_id (already in `unit`).
+# `fdc`:  USDA FoodData Central nutrient id(s) (already in `unit`). A list means "first
+#         present wins" — e.g. Foundation foods report energy only as Atwater estimates.
 #
 # Order here is label order; build.ts preserves it as `sort`.
 
@@ -26,7 +27,7 @@
   label: required
   off: energy-kcal
   scale: 1
-  fdc: 1008
+  fdc: [1008, 2048, 2047]   # Energy; Atwater specific; Atwater general
 
 - id: fat
   name: Total Fat
@@ -122,7 +123,7 @@
   parent: carbohydrate
   off: sugars
   scale: 1
-  fdc: 2000
+  fdc: [2000, 1063]   # Sugars, total including NLEA; Sugars, Total NLEA
 
 - id: sugars_added
   name: Added Sugars
