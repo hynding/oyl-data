@@ -37,6 +37,16 @@ pnpm extract:off && pnpm shard:off   # 5. the real thing → foods/products/**
 pnpm check                           # 6. validate everything, build dist/oyl-foods.sqlite
 ```
 
+### How much to seed
+
+OFF has ~290k US products with usable nutrition data — ~500 MB of YAML, too much for a
+git repo and mostly long tail. `extract:off` therefore defaults to products that at least
+two different people have scanned (`unique_scans_n ≥ 2`): ~28k products, ~55 MB. Run
+`pnpm extract:off --stats` to see the counts at other cutoffs and pass `--min-scans N`
+to change it (`0` disables the filter). For a barcode that isn't seeded, OYL should fall
+back to the OFF API (`https://world.openfoodfacts.org/api/v2/product/<code>`) and cache
+the result; this repo is the hot set, not the universe.
+
 `extract:off` uses `.cache/food.parquet` when it exists. Without it, DuckDB streams the
 file from Hugging Face with HTTP range requests, which works for a `--describe` but gets
 rate-limited (HTTP 429) quickly — hence the one-time download. The filters live in

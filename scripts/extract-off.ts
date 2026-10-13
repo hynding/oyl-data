@@ -7,7 +7,7 @@
  *   pnpm extract:off --limit 2000          # sample run
  *   pnpm extract:off --describe            # print the live Parquet schema and exit
  *   pnpm extract:off --stats               # product counts at various quality/popularity cutoffs
- *   pnpm extract:off --min-scans 5         # only products scanned by ≥ 5 people (unique_scans_n)
+ *   pnpm extract:off --min-scans 5         # only products scanned by ≥ 5 people (default 2; 0 = no popularity filter)
  *
  * Output is one JSON object per line with the raw OFF columns selected in
  * extract-off.sql. shard-products.ts turns that into YAML.
@@ -27,6 +27,8 @@ const source = opt('source') ?? (existsSync(LOCAL) ? LOCAL : HF_URL);
 const limit = opt('limit');
 const describe = args.includes('--describe');
 const out = opt('out') ?? resolve(CACHE, 'off-us.jsonl');
+// Default to products ≥ 2 people have scanned (~28k, ~55 MB of YAML). 0 = everything with completeness ≥ 0.5 (~290k, ~500 MB).
+const minScans = opt('min-scans') !== undefined ? Number(opt('min-scans')) : 2;
 
 mkdirSync(CACHE, { recursive: true });
 
@@ -92,11 +94,12 @@ const sql = readFileSync(resolve(ROOT, 'scripts/extract-off.sql'), 'utf8')
   })
   .join('\n')
   .replaceAll('{{SOURCE}}', source)
-  .replaceAll('{{MIN_SCANS}}', opt('min-scans') ? `AND coalesce(unique_scans_n, 0) >= ${Number(opt('min-scans'))}` : '')
+  .replaceAll('{{MIN_SCANS}}', minScans > 0 ? `AND coalesce(unique_scans_n, 0) >= ${minScans}` : '')
   .replaceAll('{{LIMIT}}', limit ? `LIMIT ${Number(limit)}` : '');
 if (missing.length) console.log(`not in this Parquet (left NULL): ${missing.join(', ')}`);
 
 console.log(`source: ${source}`);
+console.log(`filter: US, English, completeness ≥ 0.5${minScans > 0 ? `, unique_scans_n ≥ ${minScans}` : ''}`);
 console.log(`output: ${out}`);
 const started = Date.now();
 
