@@ -16,12 +16,12 @@ nutrition/                  the nutrition domain
   allergens.yaml            FDA big-9 + common extras, mapped from OFF tags
   categories.yaml           OYL's own shallow category tree, mapped from OFF/USDA
   schema/                   JSON Schema for each of the above and for Food records
-  foods/generic/            unbranded foods (USDA FDC) — hand-curated YAML lists
+  foods/generic/            unbranded + restaurant foods (USDA FDC) — generated, by dataset and category
   foods/products/           branded US products (Open Food Facts) — generated, 1,000 shards by GTIN
 scripts/
   lib.ts                    paths, YAML loader, CLI helpers shared by every domain
   validate.ts, build.ts     orchestrators: call each domain's validate/build, write the manifest
-  nutrition/                extract-off.{ts,sql} → shard-products.ts → validate.ts → build.ts + schema.sql
+  nutrition/                extract-{off,usda}.{ts,sql} → shard-{products,generic}.ts → validate.ts → build.ts + schema.sql
 tests/fixtures/<domain>/    a tiny source sample that `pnpm test` runs end to end
 .github/workflows/          check on PRs/main; release (SQLite as a GitHub Release asset) on v* tags
 .cache/                     gitignored: the 8 GB food.parquet, extracted JSONL, previews
@@ -81,11 +81,13 @@ After a shard run, the script prints the most common OFF category tags that mapp
 Quarterly is plenty. Re-download, re-run, let git show the diff:
 
 ```sh
-pnpm fetch:off && pnpm extract:off && pnpm shard:off && pnpm check
-git add nutrition/foods/products && git commit -m "Refresh OFF seed $(date +%Y-%m-%d)"
+pnpm fetch:off && pnpm extract:off && pnpm shard:off
+pnpm fetch:usda && pnpm extract:usda && pnpm shard:usda
+pnpm check
+git add nutrition/foods && git commit -m "Refresh nutrition seed $(date +%Y-%m-%d)"
 ```
 
-`shard:off` compares against the existing `nutrition/foods/products/` first and prints
+Both shard steps compare against the existing directory first and print
 `refresh: 27,053 → 27,410 products (+900 new, −543 gone)`. If the count would drop more
 than 20% it refuses — that almost always means OFF changed its export or the filter broke,
 not that products vanished — and `--force` overrides. Ids are `off:<gtin14>` and never
@@ -96,12 +98,41 @@ To publish a build, tag the commit: `git tag v2026.10 && git push --tags`. The r
 workflow runs `pnpm check` and attaches `oyl-data.sqlite.gz`, `manifest.json` and
 checksums to a GitHub Release. OYL pins a tag and checks `schema_version` in the manifest.
 
-## Generic foods (USDA)
+## Generic foods and restaurant items (USDA)
 
 OFF is barcode-centric and thin on "banana" or "chicken breast", which is most of what
-people log by hand. `nutrition/foods/generic/` fills that gap from USDA FoodData Central (public
-domain). It's hand-curated for now; a `scripts/nutrition/extract-usda.ts` over the FDC CSV
-export (Foundation + SR Legacy, with their `food_portion` table) is the next step.
+people log by hand, and it has no restaurant food at all. `nutrition/foods/generic/`
+fills both gaps from USDA FoodData Central (public domain):
+
+| dataset | what | size |
+|---|---|---|
+| Foundation | current lab-analyzed foods | few hundred |
+| SR Legacy | Standard Reference, frozen 2018; includes chain items ("McDONALD'S, Big Mac" → brand `McDonald's`, category `restaurant`) | ~7.8k |
+| FNDDS (survey) | "as eaten" composites with household portions, e.g. "Cheeseburger, from fast food" | ~5k |
+
+```sh
+pnpm fetch:usda                      # 1. download the three CSV bundles (~150 MB) → .cache/usda/
+pnpm extract:usda --stats            # 2. food counts per dataset and source category
+pnpm extract:usda && pnpm shard:usda # 3. → nutrition/foods/generic/<dataset>/<category>.yaml
+pnpm check
+```
+
+The fetch script's URLs are date-stamped by USDA; if one 404s, copy the current CSV link
+from https://fdc.nal.usda.gov/download-datasets into `scripts/nutrition/fetch-usda.sh`.
+USDA refreshes Foundation and FNDDS about twice a year; SR Legacy never changes.
+
+Normalization: nutrients map by FDC nutrient id (`fdc` in `nutrients.yaml`; a list means
+"first present wins", which is how Foundation's Atwater energy estimates fill in for the
+missing `Energy` row); amounts are per 100 g already. Portions come from `food_portion`
+(amount × measure unit + modifier, or the FNDDS description). The same food often exists
+in all three datasets — one survives per normalized name, preferring Foundation > SR
+Legacy > FNDDS. Categories map from FDC food groups / WWEIA categories via the `fdc`
+keywords in `categories.yaml`; anything described as "fast food" or "restaurant" lands
+in `restaurant` regardless.
+
+Chain-specific current menus (a 2025 Chipotle bowl, say) are not in any open bulk
+source; if OYL needs them, curate `nutrition/foods/restaurants/<chain>.yaml` from the
+chain's published nutrition sheet, which is factual data.
 
 ## Using the build
 

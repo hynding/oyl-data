@@ -18,7 +18,8 @@ Obligations when OYL ships this data:
 ## USDA FoodData Central (`nutrition/foods/generic/**`, `source.name: fdc`)
 
 U.S. Department of Agriculture, Agricultural Research Service. FoodData Central, https://fdc.nal.usda.gov.
-Public domain (CC0); attribution is requested, not required.
+Datasets used: Foundation Foods, SR Legacy (2018), FNDDS 2021-2023. Public domain (CC0);
+attribution is requested, not required. Suggested: "Source: USDA FoodData Central."
 
 ## Reference tables (`nutrition/*.yaml`)
 

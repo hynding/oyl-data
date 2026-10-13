@@ -32,6 +32,7 @@ pnpm test                 # fixture through shard + validate; run after touching
 pnpm check                # typecheck + validate all YAML + build SQLite (what CI runs)
 pnpm extract:off [--stats | --describe | --limit N | --min-scans N | --source file]
 pnpm shard:off [--out dir | --limit N | --force]
+pnpm fetch:usda / extract:usda [--stats | --limit N | --source dir] / shard:usda [--out dir | --force]
 pnpm validate [--quick | --dir X]
 pnpm build [--out file]
 ```
@@ -116,8 +117,10 @@ Candidate domains and sources already scouted, for when they come up:
 
 - **Exercise / activity**: Compendium of Physical Activities (MET values; research license,
   check terms), or build a small curated table — no good bulk open source exists.
-- **Recipes**: no clean open bulk source; USDA FDC "SR Legacy" has some composite dishes.
-  Likely user-authored in OYL, with this repo supplying only ingredients.
+- **Recipes**: no clean open bulk source; FNDDS composites ("Lasagna with meat, homemade")
+  cover the common ones. Likely user-authored in OYL, with this repo supplying ingredients.
+- **Restaurant menus**: SR Legacy (dated chain items) and FNDDS ("from fast food") are in;
+  current chain menus have no open bulk source — curate per chain from published sheets.
 - **Medications / supplements**: NIH DSLD (Dietary Supplement Label Database, public domain,
   bulk CSV) for supplements; openFDA NDC directory (public domain) for medications, with
   RxNorm (free, but needs a UMLS account) only if OYL needs ingredient-level normalization.
@@ -148,6 +151,11 @@ Candidate domains and sources already scouted, for when they come up:
 - OFF `completeness` cliffs at 0.7 (needs photos); `unique_scans_n` is the useful quality
   signal. `en:null` / `en:undefined` appear as category tags.
 - Sharding by GTIN prefix put 7k products in one file; trailing digits spread evenly.
-- `rmSync(outDir)` in the shard step deleted the products README; clear `NN/` dirs only.
+- `rmSync(outDir)` in the shard step deleted the products README; clear generated dirs only.
+- FDC CSVs: read everything `all_varchar` and cast — types drift between releases. Foundation
+  foods lack nutrient 1008 (Energy); use 2048/2047 Atwater. SR Legacy encodes brands in the
+  description ("McDONALD'S, Big Mac"). FNDDS has no food_category; use WWEIA via
+  survey_fndds_food. `measure_unit` 9999 = "undetermined" → use portion_description.
+- A `const` table declared below a top-level `for await` that uses it is a TDZ error.
 - Real data has negative nutrient values, completeness > 1, serving size 0 — sanitize
   before validating, and keep the validator strict.
