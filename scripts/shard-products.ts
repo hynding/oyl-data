@@ -69,6 +69,17 @@ function toFood(row: Row): Food | null {
   const gtin = toGtin14(row.code);
   if (!gtin) { skipped.gtin++; return null; }
 
+  // serving_quantity is OFF's parsed number (g or ml); the unit comes from the printed text.
+  const parsedServing = parseServing(row.serving_size, units);
+  const servingQty = num(row.serving_quantity);
+  const serving = servingQty && servingQty > 0
+    ? { size: servingQty, unit: parsedServing?.unit ?? (isVolume(row.product_quantity_unit) ? 'ml' as const : 'g' as const) }
+    : parsedServing;
+  // OFF states explicitly whether the label values are per 100 g or per 100 ml.
+  const basis: Food['basis'] = /ml/i.test(row.nutrition_data_per ?? '') ? '100ml'
+    : /100\s*g/i.test(row.nutrition_data_per ?? '') ? '100g'
+    : serving?.unit === 'ml' ? '100ml' : '100g';
+
   const nut = parseJson<any[]>(row.nutriments) ?? [];
   const per100: Record<string, number> = {};
   const perServing: Record<string, number> = {};
@@ -77,22 +88,21 @@ function toFood(row: Row): Food | null {
     if (!def) continue;
     const v100 = num(item['100g']);
     const vServ = num(item['serving']);
+    // Zero-valued extras (alcohol, caffeine, …) are noise; zeros on label nutrients are real ("Trans Fat 0g").
+    if (def.label === 'extra' && !v100 && !vServ) continue;
     if (v100 != null) per100[def.id] = convert(def.id, v100 * def.scale);
     if (vServ != null) perServing[def.id] = convert(def.id, vServ * def.scale);
+  }
+  // Some products carry only per-serving values; derive per-100 when the serving size is known.
+  if (serving && serving.size > 0) {
+    for (const [id, v] of Object.entries(perServing)) if (!(id in per100)) per100[id] = round((v * 100) / serving.size, 3);
   }
   // Must have at least calories or the macro trio to be useful.
   if (!('energy' in per100) && !('fat' in per100 && 'carbohydrate' in per100 && 'protein' in per100)) { skipped.nutrients++; return null; }
 
-  // serving_quantity is OFF's parsed number (g or ml); the unit comes from the printed text.
-  const parsedServing = parseServing(row.serving_size, units);
-  const servingQty = num(row.serving_quantity);
-  const serving = servingQty && servingQty > 0
-    ? { size: servingQty, unit: parsedServing?.unit ?? (isVolume(row.product_quantity_unit) ? 'ml' as const : 'g' as const) }
-    : parsedServing;
-  const basis: Food['basis'] = (serving?.unit === 'ml' || isVolume(row.product_quantity_unit)) ? '100ml' : '100g';
-
-  const cats = matchCategories(row.categories_tags);
-  if (cats[0] === 'other') for (const t of row.categories_tags ?? []) unmatchedTags.set(t, (unmatchedTags.get(t) ?? 0) + 1);
+  const tags = (row.categories_tags ?? []).filter((t: string) => t !== 'en:null' && t !== 'en:undefined');
+  const cats = matchCategories(tags);
+  if (cats[0] === 'other') for (const t of tags) unmatchedTags.set(t, (unmatchedTags.get(t) ?? 0) + 1);
 
   const food: Food = {
     id: `off:${gtin}`,
@@ -110,7 +120,7 @@ function toFood(row: Row): Food | null {
       serving: {
         size: round(serving.size, 2), unit: serving.unit,
         ...(clean(row.serving_size) && { description: clean(row.serving_size)! }),
-        ...(num(row.product_quantity) && serving.size > 0 && { per_container: round(num(row.product_quantity)! / serving.size, 1) }),
+        ...(perContainer(num(row.product_quantity), serving.size) && { per_container: perContainer(num(row.product_quantity), serving.size)! }),
       },
     }),
     nutrients: per100,
@@ -133,6 +143,13 @@ function toFood(row: Row): Food | null {
     },
   };
   return food;
+}
+
+/** Servings per container, or null when the inputs don't make sense (package smaller than a serving, absurd ratios). */
+function perContainer(packageQty: number | null, servingSize: number): number | null {
+  if (!packageQty || servingSize <= 0) return null;
+  const n = round(packageQty / servingSize, 1);
+  return n >= 1 && n <= 500 ? n : null;
 }
 
 /** OFF reports alcohol as % by volume; store grams per 100 ml (ethanol density 0.789). */
@@ -160,7 +177,10 @@ function images(row: Row): Food['images'] | null {
   const out: NonNullable<Food['images']> = {};
   for (const kind of ['front', 'nutrition', 'ingredients'] as const) {
     const sel = imgs.find((i) => i?.key === `${kind}_en`) ?? imgs.find((i) => typeof i?.key === 'string' && i.key.startsWith(`${kind}_`));
-    if (sel?.imgid != null) out[kind] = `https://images.openfoodfacts.org/images/products/${folder}/${sel.imgid}.400.jpg`;
+    if (!sel) continue;
+    // Selected images are served as <key>.<rev>.400.jpg (cropped/rotated); fall back to the raw upload.
+    const file = sel.rev != null ? `${sel.key}.${sel.rev}` : sel.imgid != null ? String(sel.imgid) : null;
+    if (file) out[kind] = `https://images.openfoodfacts.org/images/products/${folder}/${file}.400.jpg`;
   }
   return Object.keys(out).length ? out : null;
 }

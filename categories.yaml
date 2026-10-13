@@ -11,6 +11,9 @@
 - id: produce
   name: Fruits & Vegetables
   children:
+    - id: produce_other
+      name: Fresh Produce
+      off: [en:produce, en:fruits-and-vegetables, en:plant-based-foods]
     - id: fruit
       name: Fruit
       off: [en:fruits, en:fresh-fruits, en:dried-fruits, en:fruit-based-foods]
@@ -25,7 +28,7 @@
   children:
     - id: meat
       name: Meat
-      off: [en:meats, en:poultry, en:beef, en:pork, en:prepared-meats]
+      off: [en:meats, en:meats-and-their-products, en:poultry, en:beef, en:pork, en:prepared-meats]
       fdc: [Beef Products, Pork Products, Poultry Products, Lamb, Veal, and Game Products, Sausages and Luncheon Meats]
     - id: seafood
       name: Fish & Seafood
@@ -55,6 +58,9 @@
     - id: dairy_alternative
       name: Plant-Based Dairy
       off: [en:plant-based-milk-alternatives, en:plant-based-cheese-alternatives, en:non-dairy-yogurts]
+    - id: dairy_other
+      name: Other Dairy
+      off: [en:dairies, en:dairy-desserts, en:ice-creams-and-sorbets, en:ice-cream]
 
 - id: grains
   name: Grains, Bread & Cereal
@@ -75,14 +81,20 @@
 - id: snacks
   name: Snacks & Sweets
   children:
+    - id: snacks_other
+      name: Other Snacks
+      off: [en:snacks]
     - id: chips
       name: Chips & Crackers
-      off: [en:crisps, en:chips, en:crackers, en:salty-snacks]
+      off: [en:salty-snacks, en:salted-snacks, en:crisps, en:chips, en:crackers, en:popcorn, en:pretzels]
       fdc: [Snacks]
     - id: candy
       name: Candy & Chocolate
-      off: [en:confectioneries, en:chocolates, en:candies]
+      off: [en:sweet-snacks, en:confectioneries, en:chocolates, en:candies, en:chewing-gum]
       fdc: [Sweets]
+    - id: desserts
+      name: Desserts & Puddings
+      off: [en:desserts, en:puddings, en:dessert-mixes, en:frozen-desserts]
     - id: cookies
       name: Cookies & Pastries
       off: [en:biscuits-and-cakes, en:cookies, en:cakes, en:pastries]
@@ -130,7 +142,7 @@
       fdc: [Soups, Sauces, and Gravies]
     - id: prepared
       name: Prepared & Ready Meals
-      off: [en:meals, en:prepared-meals, en:ready-meals, en:sandwiches, en:pizzas]
+      off: [en:composite-foods, en:meals, en:prepared-meals, en:ready-meals, en:sandwiches, en:pizzas, en:appetizers-sides, en:side-dishes, en:stuffing, en:salads]
       fdc: [Fast Foods, Restaurant Foods, Meals, Entrees, and Side Dishes]
 
 - id: pantry
@@ -145,7 +157,7 @@
       fdc: [Fats and Oils]
     - id: baking
       name: Baking & Sweeteners
-      off: [en:sugars, en:sweeteners, en:baking-ingredients, en:syrups]
+      off: [en:sugars, en:sweeteners, en:baking-ingredients, en:syrups, en:baking-decorations, en:cooking-helpers, en:cooking-aids, en:mixes]
     - id: spices
       name: Herbs & Spices
       off: [en:spices, en:herbs, en:seasonings]
@@ -158,7 +170,7 @@
 
 - id: supplements
   name: Supplements
-  off: [en:dietary-supplements, en:food-supplements, en:protein-powders]
+  off: [en:dietary-supplements, en:food-supplements, en:supplement, en:protein-powders, en:protein-powder, en:drink-mix]
 
 - id: other
   name: Other
