@@ -54,7 +54,7 @@ export function flattenCategories(cats: Category[], parent: string | null = null
 
 /** Normalize any UPC-A / EAN-8 / EAN-13 / GTIN string to GTIN-14; returns null if it isn't a plausible barcode. */
 export function toGtin14(code: string): string | null {
-  const digits = (code ?? '').replace(/\D/g, '');
+  const digits = (code ?? '').replace(/\D/g, '').replace(/^0+(?=\d{8})/, ''); // drop padding zeros, keep ≥ 8 digits
   if (digits.length < 8 || digits.length > 14) return null;
   return digits.padStart(14, '0');
 }

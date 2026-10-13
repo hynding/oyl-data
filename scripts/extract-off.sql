@@ -26,6 +26,7 @@ SELECT
   traces_tags,                                        -- optional
   categories_tags,                                    -- optional
   labels_tags,                                        -- optional
+  unique_scans_n,                                     -- optional
   nova_group,                                         -- optional
   nutriscore_grade,                                   -- optional
   completeness,
@@ -40,5 +41,6 @@ WHERE
   AND len(nutriments) > 0
   AND en_text(product_name) IS NOT NULL
   AND coalesce(obsolete, false) = false              -- optional
+  {{MIN_SCANS}}
 ORDER BY code
 {{LIMIT}}

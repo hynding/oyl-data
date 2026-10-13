@@ -6,6 +6,8 @@
  *   pnpm extract:off --source other.parquet
  *   pnpm extract:off --limit 2000          # sample run
  *   pnpm extract:off --describe            # print the live Parquet schema and exit
+ *   pnpm extract:off --stats               # product counts at various quality/popularity cutoffs
+ *   pnpm extract:off --min-scans 5         # only products scanned by ≥ 5 people (unique_scans_n)
  *
  * Output is one JSON object per line with the raw OFF columns selected in
  * extract-off.sql. shard-products.ts turns that into YAML.
@@ -59,6 +61,20 @@ if (describe) {
   process.exit(0);
 }
 
+if (args.includes('--stats')) {
+  // How many US products survive at different quality / popularity cutoffs — to size the seed.
+  const base = `FROM read_parquet('${source}') WHERE list_contains(countries_tags, 'en:united-states') AND lang = 'en' AND len(nutriments) > 0`;
+  const q = async (sql: string) => Number((await conn.runAndReadAll(sql)).getRows()[0][0]);
+  const total = await q(`SELECT count(*) ${base}`);
+  console.log(`US + English + has nutriments: ${total.toLocaleString()}`);
+  console.log('\ncompleteness ≥   count');
+  for (const c of [0.5, 0.6, 0.7, 0.8, 0.9]) console.log(`  ${c.toFixed(1)}           ${(await q(`SELECT count(*) ${base} AND completeness >= ${c}`)).toLocaleString()}`);
+  console.log('\nunique_scans_n ≥   count   (people have actually scanned it)');
+  for (const n of [1, 2, 5, 10, 25, 100]) console.log(`  ${String(n).padEnd(5)}            ${(await q(`SELECT count(*) ${base} AND completeness >= 0.5 AND coalesce(unique_scans_n, 0) >= ${n}`)).toLocaleString()}`);
+  console.log('\nwith serving size + ingredients + completeness ≥ 0.5:', (await q(`SELECT count(*) ${base} AND completeness >= 0.5 AND serving_quantity IS NOT NULL AND len(ingredients_text) > 0`)).toLocaleString());
+  process.exit(0);
+}
+
 // English text from OFF's list<struct<lang, text>> columns, falling back to the 'main' entry.
 await conn.run(`CREATE MACRO en_text(l) AS coalesce(list_filter(l, x -> x.lang = 'en')[1].text, list_filter(l, x -> x.lang = 'main')[1].text)`);
 
@@ -76,6 +92,7 @@ const sql = readFileSync(resolve(ROOT, 'scripts/extract-off.sql'), 'utf8')
   })
   .join('\n')
   .replaceAll('{{SOURCE}}', source)
+  .replaceAll('{{MIN_SCANS}}', opt('min-scans') ? `AND coalesce(unique_scans_n, 0) >= ${Number(opt('min-scans'))}` : '')
   .replaceAll('{{LIMIT}}', limit ? `LIMIT ${Number(limit)}` : '');
 if (missing.length) console.log(`not in this Parquet (left NULL): ${missing.join(', ')}`);
 

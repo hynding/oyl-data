@@ -86,7 +86,7 @@
       off: [en:snacks]
     - id: chips
       name: Chips & Crackers
-      off: [en:salty-snacks, en:salted-snacks, en:crisps, en:chips, en:crackers, en:popcorn, en:pretzels]
+      off: [en:salty-snacks, en:salted-snacks, en:Salted snacks, en:crisps, en:chips, en:chips-and-fries, en:crackers, en:popcorn, en:pretzels]
       fdc: [Snacks]
     - id: candy
       name: Candy & Chocolate
@@ -94,13 +94,13 @@
       fdc: [Sweets]
     - id: desserts
       name: Desserts & Puddings
-      off: [en:desserts, en:puddings, en:dessert-mixes, en:frozen-desserts]
+      off: [en:desserts, en:puddings, en:dessert-mixes, en:frozen-desserts, en:sweet-pies, en:pies]
     - id: cookies
       name: Cookies & Pastries
       off: [en:biscuits-and-cakes, en:cookies, en:cakes, en:pastries]
     - id: bars
       name: Bars
-      off: [en:bars, en:cereal-bars, en:protein-bars, en:energy-bars]
+      off: [en:bars, en:snack-bar, en:snack-bars, en:cereal-bars, en:protein-bars, en:energy-bars, en:granola-bars]
     - id: nuts_seeds
       name: Nuts & Seeds
       off: [en:nuts, en:seeds, en:nuts-and-their-products]
@@ -120,14 +120,14 @@
       off: [en:juices, en:fruit-juices, en:nectars]
     - id: coffee_tea
       name: Coffee & Tea
-      off: [en:coffees, en:teas, en:iced-teas, en:hot-beverages]
+      off: [en:coffees, en:teas, en:iced-teas, en:hot-beverages, en:cocoa-and-chocolate-powders, en:instant-beverages, en:beverage-preparations, en:drink-mixes]
     - id: alcohol
       name: Alcoholic Beverages
       off: [en:alcoholic-beverages, en:beers, en:wines, en:spirits]
       fdc: [Alcoholic Beverages]
     - id: beverage_other
       name: Other Beverages
-      off: [en:beverages]
+      off: [en:beverages, en:beverages-and-beverages-preparations]
       fdc: [Beverages]
 
 - id: meals
@@ -138,11 +138,11 @@
       off: [en:frozen-foods, en:frozen-ready-made-meals]
     - id: soup
       name: Soups
-      off: [en:soups]
+      off: [en:soups, en:broths, en:stocks, en:bouillon]
       fdc: [Soups, Sauces, and Gravies]
     - id: prepared
       name: Prepared & Ready Meals
-      off: [en:composite-foods, en:meals, en:prepared-meals, en:ready-meals, en:sandwiches, en:pizzas, en:appetizers-sides, en:side-dishes, en:stuffing, en:salads]
+      off: [en:composite-foods, en:meals, en:prepared-meals, en:ready-meals, en:entrees, en:sandwiches, en:pizzas, en:appetizers-sides, en:side-dishes, en:stuffing, en:salads, en:mexican-dinner-mixes, en:meal-kits, en:dinner-mixes]
       fdc: [Fast Foods, Restaurant Foods, Meals, Entrees, and Side Dishes]
 
 - id: pantry
@@ -157,7 +157,7 @@
       fdc: [Fats and Oils]
     - id: baking
       name: Baking & Sweeteners
-      off: [en:sugars, en:sweeteners, en:baking-ingredients, en:syrups, en:baking-decorations, en:cooking-helpers, en:cooking-aids, en:mixes]
+      off: [en:sugars, en:sweeteners, en:baking-ingredients, en:syrups, en:baking-decorations, en:cooking-helpers, en:cooking-aids, en:mixes, en:toppings-ingredients, en:toppings, en:food-additives, en:cocoa-and-its-products, en:cocoa]
     - id: spices
       name: Herbs & Spices
       off: [en:spices, en:herbs, en:seasonings]
@@ -170,7 +170,7 @@
 
 - id: supplements
   name: Supplements
-  off: [en:dietary-supplements, en:food-supplements, en:supplement, en:protein-powders, en:protein-powder, en:drink-mix]
+  off: [en:dietary-supplements, en:food-supplements, en:supplement, en:protein-supplement, en:protein-powders, en:protein-powder, en:drink-mix]
 
 - id: other
   name: Other
