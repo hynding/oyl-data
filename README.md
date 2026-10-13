@@ -1,8 +1,10 @@
 # oyl-data
 
-Seed data for [OYL](https://github.com/hynding/oyl). Nutrition first: everything a US
-Nutrition Facts label carries, plus ingredients, allergens, barcodes, categories and
-household portions, for both branded products (Open Food Facts) and generic foods (USDA).
+Seed data for [OYL](https://github.com/hynding/oyl), organized as YAML and compiled to
+SQLite. Nutrition is the first domain: everything a US Nutrition Facts label carries, plus
+ingredients, allergens, barcodes, categories and household portions, for branded products
+(Open Food Facts) and generic foods (USDA). Other domains will follow the same pattern —
+see [CLAUDE.md](CLAUDE.md) for the conventions.
 
 YAML is the source of truth and what you edit or review. `pnpm build` compiles it into
 `dist/oyl-foods.sqlite`, which is what OYL actually loads.
@@ -14,9 +16,12 @@ allergens.yaml      FDA big-9 + common extras, mapped from OFF tags
 categories.yaml     OYL's own shallow category tree, mapped from OFF/USDA
 schema/             JSON Schema for each of the above and for Food records
 foods/generic/      unbranded foods (USDA FDC) — hand-curated YAML lists
-foods/products/     branded US products (Open Food Facts) — generated, sharded by GTIN
-scripts/            extract → shard → validate → build
-dist/               build output (gitignored): oyl-foods.sqlite + manifest.json
+foods/products/     branded US products (Open Food Facts) — generated, 1,000 shards by GTIN
+scripts/            extract → shard → validate → build (+ schema.sql for the SQLite layout)
+tests/fixtures/     a tiny OFF sample that `pnpm test` runs end to end
+.github/workflows/  check on PRs/main; release (SQLite as a GitHub Release asset) on v* tags
+.cache/             gitignored: the 8 GB food.parquet, extracted JSONL, previews
+dist/               gitignored: oyl-foods.sqlite + manifest.json
 ```
 
 ## Setup
@@ -31,10 +36,10 @@ pnpm test        # shard the fixture, validate it — proves the toolchain works
 ```sh
 pnpm fetch:off                       # 1. download food.parquet (a few GB, resumable) to .cache/
 pnpm extract:off --describe          # 2. print the Parquet schema (sanity check after OFF changes)
-pnpm extract:off --limit 2000        # 3. sample: US, English, completeness ≥ 0.5 → .cache/off-us.jsonl
+pnpm extract:off --limit 2000        # 3. sample → .cache/off-us.jsonl (US, English, completeness ≥ 0.5, scans ≥ 2)
 pnpm shard:off --out .cache/preview  # 4. look at the YAML before committing to it
 pnpm extract:off && pnpm shard:off   # 5. the real thing → foods/products/**
-pnpm check                           # 6. validate everything, build dist/oyl-foods.sqlite
+pnpm check                           # 6. typecheck, validate everything, build dist/oyl-foods.sqlite
 ```
 
 ### How much to seed
@@ -43,7 +48,7 @@ OFF has ~290k US products with usable nutrition data — ~500 MB of YAML, too mu
 git repo and mostly long tail. `extract:off` therefore defaults to products that at least
 two different people have scanned (`unique_scans_n ≥ 2`): ~28k products, ~55 MB. Run
 `pnpm extract:off --stats` to see the counts at other cutoffs and pass `--min-scans N`
-to change it (`0` disables the filter). For a barcode that isn't seeded, OYL should fall
+to change it (`1` ≈ 70k / 130 MB; `0` disables the filter). For a barcode that isn't seeded, OYL should fall
 back to the OFF API (`https://world.openfoodfacts.org/api/v2/product/<code>`) and cache
 the result; this repo is the hot set, not the universe.
 
@@ -100,12 +105,23 @@ SELECT f.* FROM food_barcodes b JOIN foods f ON f.id = b.food_id WHERE b.barcode
 -- search by name/brand/ingredients
 SELECT food_id, name FROM foods_fts WHERE foods_fts MATCH 'peanut butter' ORDER BY rank LIMIT 20;
 
--- label for one serving, with %DV, in label order
-SELECT n.name, fn.per_100 * f.serving_size / 100 AS amount, n.unit,
-       100 * fn.per_100 * f.serving_size / 100 / n.dv AS dv_pct
+-- Nutrition Facts for one serving, with %DV, in label order
+-- (prefer the label-stated per-serving value; derive from per-100 otherwise)
+SELECT n.name,
+       coalesce(fn.per_serving, fn.per_100 * f.serving_size / 100) AS amount, n.unit,
+       100 * coalesce(fn.per_serving, fn.per_100 * f.serving_size / 100) / n.dv AS dv_pct
 FROM foods f JOIN food_nutrients fn ON fn.food_id = f.id JOIN nutrients n ON n.id = fn.nutrient_id
-WHERE f.gtin = '00041196010183' ORDER BY n.sort;
+WHERE f.gtin = '00041196010183' AND n.label = 'required' ORDER BY n.sort;
+
+-- a generic food by household portion
+SELECT p.description, n.name, round(fn.per_100 * p.grams / 100, 1) AS amount, n.unit
+FROM foods f JOIN food_portions p ON p.food_id = f.id
+JOIN food_nutrients fn ON fn.food_id = f.id JOIN nutrients n ON n.id = fn.nutrient_id
+WHERE f.id = 'fdc:173944' AND n.id IN ('energy', 'protein', 'fiber');
 ```
+
+`manifest.json` next to the SQLite carries `schema_version`, counts and a build timestamp;
+check `schema_version` before loading.
 
 ## Licenses
 
