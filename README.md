@@ -53,9 +53,9 @@ pnpm check                           # 6. typecheck, validate everything, build 
 
 OFF has ~290k US products with usable nutrition data — ~500 MB of YAML, too much for a
 git repo and mostly long tail. `extract:off` therefore defaults to products that at least
-two different people have scanned (`unique_scans_n ≥ 2`): ~28k products, ~55 MB. Run
+two different people have scanned (`unique_scans_n ≥ 2`): ~27k products, ~47 MB. Run
 `pnpm extract:off --stats` to see the counts at other cutoffs and pass `--min-scans N`
-to change it (`1` ≈ 70k / 130 MB; `0` disables the filter). For a barcode that isn't seeded, OYL should fall
+to change it (`1` ≈ 68k / 111 MB, `5` ≈ 8k; `0` disables the filter). For a barcode that isn't seeded, OYL should fall
 back to the OFF API (`https://world.openfoodfacts.org/api/v2/product/<code>`) and cache
 the result; this repo is the hot set, not the universe.
 
