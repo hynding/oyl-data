@@ -41,7 +41,7 @@
     - milk
     - tree_nuts
   categories:
-    - other
+    - candy
   labels:
     - no-gluten
     - no-artificial-flavors
@@ -4505,7 +4505,7 @@
       - CHOCOLATE
       - COCOA BUTTER
   categories:
-    - other
+    - baking
   labels:
     - vegetarian
     - no-gluten

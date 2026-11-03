@@ -44,7 +44,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - cheese
+    - prepared
   source:
     name: fdc
     id: "2708811"
@@ -96,7 +96,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - cheese
+    - prepared
   source:
     name: fdc
     id: "2708823"
@@ -148,7 +148,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - cheese
+    - prepared
   source:
     name: fdc
     id: "2708822"
@@ -200,7 +200,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - cheese
+    - prepared
   source:
     name: fdc
     id: "2708821"
@@ -252,7 +252,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - cheese
+    - prepared
   source:
     name: fdc
     id: "2708818"
@@ -306,7 +306,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - cheese
+    - prepared
   source:
     name: fdc
     id: "2708819"
@@ -358,7 +358,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - cheese
+    - prepared
   source:
     name: fdc
     id: "2708820"
@@ -410,7 +410,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - cheese
+    - prepared
   source:
     name: fdc
     id: "2708817"
@@ -462,7 +462,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - cheese
+    - prepared
   source:
     name: fdc
     id: "2708814"
@@ -522,7 +522,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - cheese
+    - prepared
   source:
     name: fdc
     id: "2708815"
@@ -626,7 +626,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - cheese
+    - prepared
   source:
     name: fdc
     id: "2708813"
@@ -678,7 +678,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - cheese
+    - prepared
   source:
     name: fdc
     id: "2708816"
@@ -730,7 +730,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - cheese
+    - prepared
   source:
     name: fdc
     id: "2708824"
@@ -782,7 +782,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - cheese
+    - prepared
   source:
     name: fdc
     id: "2708928"
@@ -834,7 +834,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - cheese
+    - prepared
   source:
     name: fdc
     id: "2708929"

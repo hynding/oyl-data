@@ -529,7 +529,7 @@
     - milk
     - soy
   categories:
-    - other
+    - baking
   nutriscore: c
   images:
     front: https://images.openfoodfacts.org/images/products/002/800/021/5804/front_en.33.400.jpg
@@ -1666,7 +1666,7 @@
       - RETINYL PALMITATE
       - CYANOCOBALAMIN
   categories:
-    - other
+    - soda
   labels:
     - no-gluten
     - no-artificial-flavors

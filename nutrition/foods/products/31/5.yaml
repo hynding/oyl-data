@@ -1644,7 +1644,7 @@
       - Cyanocobalamin
       - Marine-Derived Calcium Citrate Malate
   categories:
-    - beverage_other
+    - water
   nova: 4
   nutriscore: c
   images:
@@ -1964,7 +1964,7 @@
     - tree_nuts
     - sesame
   categories:
-    - other
+    - cookies
   labels:
     - no-gluten
     - no-gmos

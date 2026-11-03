@@ -688,7 +688,7 @@
   allergens:
     - gluten
   categories:
-    - other
+    - meat
   nova: 4
   nutriscore: b
   images:
@@ -2419,7 +2419,7 @@
       - Flavor
       - Stevia Leaf Extract
   categories:
-    - other
+    - soda
   nova: 4
   nutriscore: e
   source:

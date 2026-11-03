@@ -230,7 +230,7 @@
       - CARNAUBA WAX
       - SODIUM CITRATE
   categories:
-    - other
+    - candy
   nova: 4
   nutriscore: e
   images:
@@ -1642,7 +1642,7 @@
     - gluten
     - milk
   categories:
-    - other
+    - bread
   labels:
     - no-preservatives
   nova: 4

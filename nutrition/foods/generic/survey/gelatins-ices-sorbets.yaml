@@ -46,7 +46,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - desserts
   source:
     name: fdc
     id: "2710322"
@@ -100,7 +100,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - desserts
   source:
     name: fdc
     id: "2709312"
@@ -154,7 +154,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - desserts
   source:
     name: fdc
     id: "2709313"
@@ -214,7 +214,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - desserts
   source:
     name: fdc
     id: "2710310"
@@ -270,7 +270,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - desserts
   source:
     name: fdc
     id: "2710311"
@@ -326,7 +326,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - desserts
   source:
     name: fdc
     id: "2710313"
@@ -382,7 +382,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - desserts
   source:
     name: fdc
     id: "2710314"
@@ -436,7 +436,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - desserts
   source:
     name: fdc
     id: "2710312"
@@ -490,7 +490,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - desserts
   source:
     name: fdc
     id: "2710317"
@@ -544,7 +544,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - desserts
   source:
     name: fdc
     id: "2710318"
@@ -604,7 +604,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - desserts
   source:
     name: fdc
     id: "2710320"
@@ -656,7 +656,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - desserts
   source:
     name: fdc
     id: "2710319"
@@ -710,7 +710,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - desserts
   source:
     name: fdc
     id: "2710321"
@@ -766,7 +766,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - desserts
   source:
     name: fdc
     id: "2710323"
@@ -822,7 +822,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - desserts
   source:
     name: fdc
     id: "2710324"
@@ -876,7 +876,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - desserts
   source:
     name: fdc
     id: "2709314"
@@ -928,7 +928,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - desserts
   source:
     name: fdc
     id: "2710315"

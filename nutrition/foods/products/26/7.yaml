@@ -320,7 +320,7 @@
       - Natural Flavor
       - Carnauba Wax
   categories:
-    - other
+    - candy
   nova: 4
   nutriscore: e
   images:
@@ -1332,7 +1332,7 @@
     - peanuts
     - soy
   categories:
-    - bars
+    - cookies
   nova: 4
   nutriscore: d
   images:

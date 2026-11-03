@@ -1064,7 +1064,7 @@
   allergens:
     - tree_nuts
   categories:
-    - other
+    - nuts_seeds
   labels:
     - no-gluten
     - vegetarian

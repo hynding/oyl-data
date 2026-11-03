@@ -1170,7 +1170,7 @@
     - milk
     - soy
   categories:
-    - supplements
+    - bread
   nova: 4
   images:
     front: https://images.openfoodfacts.org/images/products/067/984/410/3415/front_en.17.400.jpg
@@ -1218,7 +1218,7 @@
   allergens:
     - gluten
   categories:
-    - other
+    - candy
   labels:
     - organic
     - vegetarian

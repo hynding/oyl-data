@@ -1577,7 +1577,7 @@
   allergens:
     - milk
   categories:
-    - other
+    - supplements
   labels:
     - no-lactose
   nova: 4

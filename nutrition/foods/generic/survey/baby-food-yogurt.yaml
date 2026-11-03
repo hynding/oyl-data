@@ -48,7 +48,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - yogurt
+    - baby
   source:
     name: fdc
     id: "2705464"
@@ -104,7 +104,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - yogurt
+    - baby
   source:
     name: fdc
     id: "2705465"

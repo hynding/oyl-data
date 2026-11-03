@@ -353,7 +353,7 @@
   allergens:
     - tree_nuts
   categories:
-    - other
+    - nuts_seeds
   nova: 4
   nutriscore: e
   images:
@@ -1905,7 +1905,7 @@
     - tree_nuts
     - soy
   categories:
-    - fruit
+    - nuts_seeds
   labels:
     - organic
     - usda-organic

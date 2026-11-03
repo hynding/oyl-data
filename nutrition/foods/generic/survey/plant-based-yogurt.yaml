@@ -50,7 +50,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - yogurt
+    - dairy_alternative
   source:
     name: fdc
     id: "2707570"
@@ -108,7 +108,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - yogurt
+    - dairy_alternative
   source:
     name: fdc
     id: "2707569"
@@ -166,7 +166,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - yogurt
+    - dairy_alternative
   source:
     name: fdc
     id: "2707444"

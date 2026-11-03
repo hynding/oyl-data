@@ -467,7 +467,7 @@
       - acesulfame potassium
       - red 40
   categories:
-    - other
+    - juice
   nova: 4
   nutriscore: b
   images:
@@ -623,7 +623,7 @@
   allergens:
     - gluten
   categories:
-    - other
+    - chips
   nova: 3
   images:
     front: https://images.openfoodfacts.org/images/products/004/122/080/4870/front_en.18.400.jpg

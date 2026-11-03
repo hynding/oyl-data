@@ -108,7 +108,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - vegetable
   source:
     name: fdc
     id: "2709651"
@@ -166,7 +166,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - vegetable
   source:
     name: fdc
     id: "2709650"
@@ -224,7 +224,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - vegetable
   source:
     name: fdc
     id: "2709648"
@@ -282,7 +282,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - vegetable
   source:
     name: fdc
     id: "2709645"
@@ -340,7 +340,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - vegetable
   source:
     name: fdc
     id: "2709653"
@@ -398,7 +398,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - vegetable
   source:
     name: fdc
     id: "2709652"
@@ -456,7 +456,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - vegetable
   source:
     name: fdc
     id: "2709649"
@@ -514,7 +514,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - vegetable
   source:
     name: fdc
     id: "2709646"
@@ -572,7 +572,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - vegetable
   source:
     name: fdc
     id: "2709647"

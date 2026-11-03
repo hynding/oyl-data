@@ -468,7 +468,7 @@
     - milk
     - tree_nuts
   categories:
-    - other
+    - bread
   labels:
     - no-colorings
   nova: 4
@@ -659,7 +659,7 @@
       - RED 40
       - BLUE 1
   categories:
-    - beverage_other
+    - soda
   nova: 4
   nutriscore: c
   images:
@@ -1500,7 +1500,7 @@
     list:
       - AVOCADO OIL
   categories:
-    - other
+    - oils
   labels:
     - organic
     - no-gmos

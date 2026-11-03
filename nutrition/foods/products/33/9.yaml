@@ -1238,7 +1238,7 @@
   allergens:
     - tree_nuts
   categories:
-    - other
+    - nuts_seeds
   labels:
     - organic
   nova: 3

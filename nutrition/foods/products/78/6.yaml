@@ -132,7 +132,7 @@
     - gluten
     - sesame
   categories:
-    - bread
+    - chips
   nova: 4
   nutriscore: c
   images:
@@ -1228,7 +1228,7 @@
   allergens:
     - tree_nuts
   categories:
-    - other
+    - dairy_alternative
   labels:
     - vegetarian
     - no-gluten

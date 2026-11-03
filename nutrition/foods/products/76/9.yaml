@@ -467,7 +467,7 @@
   allergens:
     - tree_nuts
   categories:
-    - other
+    - nuts_seeds
   nova: 3
   nutriscore: d
   images:

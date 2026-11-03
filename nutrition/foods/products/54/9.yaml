@@ -1921,7 +1921,7 @@
   allergens:
     - celery
   categories:
-    - other
+    - meat
   labels:
     - no-gluten
   nova: 3
@@ -2324,7 +2324,7 @@
     - tree_nuts
     - soy
   categories:
-    - desserts
+    - bread
   nova: 4
   images:
     front: https://images.openfoodfacts.org/images/products/409/910/015/5549/front_en.17.400.jpg

@@ -52,7 +52,7 @@
     - sesame
     - soy
   categories:
-    - other
+    - chips
   nova: 4
   nutriscore: e
   images:
@@ -2171,7 +2171,7 @@
       - Lactic Acid
       - Tartaric Acid
   categories:
-    - other
+    - supplements
   labels:
     - no-gluten
     - no-artificial-flavors

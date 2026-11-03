@@ -44,7 +44,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - pasta_rice
+    - condiments
   source:
     name: fdc
     id: "2709745"
@@ -96,7 +96,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - pasta_rice
+    - condiments
   source:
     name: fdc
     id: "2709746"
@@ -148,7 +148,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - pasta_rice
+    - condiments
   source:
     name: fdc
     id: "2706470"
@@ -200,7 +200,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - pasta_rice
+    - condiments
   source:
     name: fdc
     id: "2706471"
@@ -252,7 +252,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - pasta_rice
+    - condiments
   source:
     name: fdc
     id: "2706422"
@@ -304,7 +304,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - pasta_rice
+    - condiments
   source:
     name: fdc
     id: "2706423"
@@ -356,7 +356,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - pasta_rice
+    - condiments
   source:
     name: fdc
     id: "2706453"
@@ -408,7 +408,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - pasta_rice
+    - condiments
   source:
     name: fdc
     id: "2706454"
@@ -460,7 +460,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - pasta_rice
+    - condiments
   source:
     name: fdc
     id: "2709748"
@@ -512,7 +512,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - pasta_rice
+    - condiments
   source:
     name: fdc
     id: "2709747"
@@ -564,7 +564,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - pasta_rice
+    - condiments
   source:
     name: fdc
     id: "2709749"

@@ -2303,7 +2303,7 @@
   allergens:
     - tree_nuts
   categories:
-    - fruit
+    - nuts_seeds
   labels:
     - no-gmos
     - non-gmo-project

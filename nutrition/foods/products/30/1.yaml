@@ -2335,7 +2335,7 @@
   allergens:
     - eggs
   categories:
-    - other
+    - prepared
   labels:
     - no-gluten
   nova: 4

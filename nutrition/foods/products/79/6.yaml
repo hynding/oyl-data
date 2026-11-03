@@ -457,7 +457,7 @@
   allergens:
     - gluten
   categories:
-    - other
+    - bread
   nova: 4
   images:
     front: https://images.openfoodfacts.org/images/products/007/874/222/0796/front_en.42.400.jpg

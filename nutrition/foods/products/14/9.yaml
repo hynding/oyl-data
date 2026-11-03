@@ -703,7 +703,7 @@
       - VITAMIN A PALMITATE
       - BETA-CAROTENE
   categories:
-    - other
+    - candy
   nova: 4
   nutriscore: e
   images:
@@ -2245,7 +2245,7 @@
   allergens:
     - tree_nuts
   categories:
-    - fruit
+    - nuts_seeds
   nova: 4
   images:
     front: https://images.openfoodfacts.org/images/products/085/746/800/6149/front_en.33.400.jpg

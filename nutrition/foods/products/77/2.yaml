@@ -56,7 +56,7 @@
     - eggs
     - milk
   categories:
-    - vegetable
+    - prepared
   nova: 4
   nutriscore: a
   images:

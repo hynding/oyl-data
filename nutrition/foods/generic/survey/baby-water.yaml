@@ -46,7 +46,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - baby
   source:
     name: fdc
     id: "2710713"

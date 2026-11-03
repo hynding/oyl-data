@@ -46,7 +46,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - meat
   source:
     name: fdc
     id: "2706159"
@@ -100,7 +100,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - meat
   source:
     name: fdc
     id: "2706163"
@@ -156,7 +156,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - meat
   source:
     name: fdc
     id: "2706165"
@@ -212,7 +212,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - meat
   source:
     name: fdc
     id: "2706156"
@@ -268,7 +268,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - meat
   source:
     name: fdc
     id: "2706164"
@@ -324,7 +324,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - meat
   source:
     name: fdc
     id: "2706157"
@@ -382,7 +382,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - meat
   source:
     name: fdc
     id: "2706153"
@@ -438,7 +438,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - meat
   source:
     name: fdc
     id: "2706154"
@@ -490,7 +490,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - meat
   source:
     name: fdc
     id: "2706155"
@@ -544,7 +544,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - meat
   source:
     name: fdc
     id: "2706158"
@@ -596,7 +596,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - meat
   source:
     name: fdc
     id: "2706160"
@@ -648,7 +648,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - meat
   source:
     name: fdc
     id: "2706161"
@@ -704,7 +704,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - meat
   source:
     name: fdc
     id: "2706162"

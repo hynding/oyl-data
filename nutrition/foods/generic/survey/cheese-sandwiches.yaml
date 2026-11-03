@@ -44,7 +44,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - cheese
+    - prepared
   source:
     name: fdc
     id: "2705796"
@@ -96,7 +96,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - cheese
+    - prepared
   source:
     name: fdc
     id: "2705795"
@@ -148,7 +148,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - cheese
+    - prepared
   source:
     name: fdc
     id: "2705798"
@@ -200,7 +200,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - cheese
+    - prepared
   source:
     name: fdc
     id: "2705797"
@@ -252,7 +252,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - cheese
+    - prepared
   source:
     name: fdc
     id: "2705794"
@@ -304,7 +304,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - cheese
+    - prepared
   source:
     name: fdc
     id: "2705800"
@@ -356,7 +356,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - cheese
+    - prepared
   source:
     name: fdc
     id: "2705799"
@@ -408,7 +408,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - cheese
+    - prepared
   source:
     name: fdc
     id: "2705803"
@@ -460,7 +460,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - cheese
+    - prepared
   source:
     name: fdc
     id: "2705802"
@@ -512,7 +512,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - cheese
+    - prepared
   source:
     name: fdc
     id: "2705805"
@@ -564,7 +564,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - cheese
+    - prepared
   source:
     name: fdc
     id: "2705804"
@@ -616,7 +616,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - cheese
+    - prepared
   source:
     name: fdc
     id: "2705801"
@@ -668,7 +668,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - cheese
+    - prepared
   source:
     name: fdc
     id: "2705807"
@@ -720,7 +720,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - cheese
+    - prepared
   source:
     name: fdc
     id: "2705806"

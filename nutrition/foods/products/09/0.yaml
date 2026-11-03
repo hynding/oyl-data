@@ -1465,7 +1465,7 @@
     vitamin_d: 0
     fat_trans: 0
   categories:
-    - other
+    - bread
   labels:
     - source-of-fibre
     - high-fibres
@@ -2149,7 +2149,7 @@
   allergens:
     - fish
   categories:
-    - other
+    - candy
   labels:
     - certified-b-corporation
   nova: 4

@@ -526,7 +526,7 @@
     - milk
     - soy
   categories:
-    - candy
+    - baking
   nova: 4
   nutriscore: e
   images:
@@ -1800,7 +1800,7 @@
       - PYRIDOXINE HYDROCHLORIDE
       - VITAMIN B12
   categories:
-    - other
+    - soda
   labels:
     - vegetarian
     - no-gmos

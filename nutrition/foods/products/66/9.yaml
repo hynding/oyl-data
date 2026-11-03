@@ -204,7 +204,7 @@
     - celery
     - soy
   categories:
-    - other
+    - meat
   nova: 4
   images:
     front: https://images.openfoodfacts.org/images/products/001/708/288/9669/front_en.13.400.jpg

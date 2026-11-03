@@ -665,7 +665,7 @@
       - SPICE
       - NATURAL FLAVOR
   categories:
-    - other
+    - condiments
   labels:
     - organic
     - usda-organic
@@ -776,7 +776,7 @@
       - CARNAUBA WAX
       - NATURAL FLAVOR
   categories:
-    - other
+    - candy
   nova: 4
   nutriscore: d
   images:

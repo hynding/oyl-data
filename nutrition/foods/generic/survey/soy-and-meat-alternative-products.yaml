@@ -46,7 +46,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - plant_protein
   source:
     name: fdc
     id: "2707465"
@@ -102,7 +102,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - plant_protein
   source:
     name: fdc
     id: "2707467"
@@ -154,7 +154,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - plant_protein
   source:
     name: fdc
     id: "2707468"
@@ -208,7 +208,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - plant_protein
   source:
     name: fdc
     id: "2707452"
@@ -262,7 +262,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - plant_protein
   source:
     name: fdc
     id: "2707470"
@@ -316,7 +316,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - plant_protein
   source:
     name: fdc
     id: "2707471"
@@ -370,7 +370,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - plant_protein
   source:
     name: fdc
     id: "2709163"
@@ -424,7 +424,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - plant_protein
   source:
     name: fdc
     id: "2707472"
@@ -480,7 +480,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - plant_protein
   source:
     name: fdc
     id: "2707545"
@@ -536,7 +536,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - plant_protein
   source:
     name: fdc
     id: "2707435"
@@ -590,7 +590,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - plant_protein
   source:
     name: fdc
     id: "2707449"
@@ -642,7 +642,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - plant_protein
   source:
     name: fdc
     id: "2707448"
@@ -698,7 +698,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - plant_protein
   source:
     name: fdc
     id: "2707451"
@@ -750,7 +750,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - plant_protein
   source:
     name: fdc
     id: "2707478"
@@ -804,7 +804,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - plant_protein
   source:
     name: fdc
     id: "2707473"
@@ -856,7 +856,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - plant_protein
   source:
     name: fdc
     id: "2707450"

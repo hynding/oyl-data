@@ -790,7 +790,7 @@
   allergens:
     - tree_nuts
   categories:
-    - other
+    - dairy_alternative
   labels:
     - no-gluten
     - no-gmos

@@ -1340,7 +1340,7 @@
   allergens:
     - celery
   categories:
-    - other
+    - meat
   labels:
     - no-gluten
   nova: 3

@@ -316,7 +316,7 @@
       - SEA SALT
       - CALCIUM HYDROXIDE
   categories:
-    - other
+    - chips
   labels:
     - vegetarian
     - no-gluten
@@ -1815,7 +1815,7 @@
       - calcium carbonate
       - gellan gum
   categories:
-    - plant_protein
+    - dairy_alternative
   labels:
     - no-lactose
     - sustainable-forestry-initative

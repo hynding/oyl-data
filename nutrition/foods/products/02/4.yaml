@@ -1026,7 +1026,7 @@
       - blue 1
       - yellow 5
   categories:
-    - other
+    - soda
   nova: 4
   nutriscore: b
   images:
@@ -1063,7 +1063,7 @@
       - MANGO
       - CHICORY ROOT FIBER
   categories:
-    - other
+    - candy
   nova: 4
   nutriscore: d
   images:
@@ -2679,7 +2679,7 @@
       - Other Flavors
       - Stevia Leaf and More
   categories:
-    - other
+    - soda
   nova: 3
   nutriscore: e
   images:

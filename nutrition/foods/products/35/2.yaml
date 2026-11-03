@@ -1353,7 +1353,7 @@
       - Natural Watermelon Flavor
       - Stevia Leaf Extract
   categories:
-    - beverage_other
+    - soda
   labels:
     - vegetarian
     - vegan
@@ -1504,7 +1504,7 @@
       - Vegetable Oil
       - Carnauba Wax
   categories:
-    - other
+    - supplements
   nova: 4
   images:
     front: https://images.openfoodfacts.org/images/products/085/293/300/8352/front_en.19.400.jpg

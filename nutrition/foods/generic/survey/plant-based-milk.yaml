@@ -46,7 +46,7 @@
     caffeine: 1
     alcohol: 0
   categories:
-    - milk
+    - dairy_alternative
   source:
     name: fdc
     id: "2705408"
@@ -104,7 +104,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - milk
+    - dairy_alternative
   source:
     name: fdc
     id: "2705410"
@@ -162,7 +162,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - milk
+    - dairy_alternative
   source:
     name: fdc
     id: "2705407"
@@ -220,7 +220,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - milk
+    - dairy_alternative
   source:
     name: fdc
     id: "2705409"
@@ -274,7 +274,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - milk
+    - dairy_alternative
   source:
     name: fdc
     id: "2705478"
@@ -330,7 +330,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - milk
+    - dairy_alternative
   source:
     name: fdc
     id: "2707571"
@@ -388,7 +388,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - milk
+    - dairy_alternative
   source:
     name: fdc
     id: "2705413"
@@ -440,7 +440,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - milk
+    - dairy_alternative
   source:
     name: fdc
     id: "2707568"
@@ -496,7 +496,7 @@
     caffeine: 2
     alcohol: 0
   categories:
-    - milk
+    - dairy_alternative
   source:
     name: fdc
     id: "2705486"
@@ -552,7 +552,7 @@
     caffeine: 2
     alcohol: 0
   categories:
-    - milk
+    - dairy_alternative
   source:
     name: fdc
     id: "2705494"
@@ -606,7 +606,7 @@
     caffeine: 3
     alcohol: 0
   categories:
-    - milk
+    - dairy_alternative
   source:
     name: fdc
     id: "2705475"
@@ -660,7 +660,7 @@
     caffeine: 1
     alcohol: 0
   categories:
-    - milk
+    - dairy_alternative
   source:
     name: fdc
     id: "2705490"
@@ -718,7 +718,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - milk
+    - dairy_alternative
   source:
     name: fdc
     id: "2705403"
@@ -776,7 +776,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - milk
+    - dairy_alternative
   source:
     name: fdc
     id: "2705412"
@@ -834,7 +834,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - milk
+    - dairy_alternative
   source:
     name: fdc
     id: "2705411"
@@ -888,7 +888,7 @@
     caffeine: 1
     alcohol: 0
   categories:
-    - milk
+    - dairy_alternative
   source:
     name: fdc
     id: "2705406"
@@ -946,7 +946,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - milk
+    - dairy_alternative
   source:
     name: fdc
     id: "2705404"
@@ -1004,7 +1004,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - milk
+    - dairy_alternative
   source:
     name: fdc
     id: "2705405"

@@ -70,7 +70,7 @@
     - eggs
     - soy
   categories:
-    - other
+    - bread
   nova: 4
   nutriscore: c
   images:
@@ -1662,7 +1662,7 @@
       - bananas
       - strawberries
   categories:
-    - other
+    - fruit
   nova: 1
   nutriscore: d
   images:

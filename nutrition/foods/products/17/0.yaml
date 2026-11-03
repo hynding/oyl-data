@@ -1433,7 +1433,7 @@
   allergens:
     - mustard
   categories:
-    - other
+    - condiments
   labels:
     - vegetarian
     - vegan
@@ -2041,7 +2041,7 @@
     - tree_nuts
     - peanuts
   categories:
-    - fruit
+    - nuts_seeds
   nova: 3
   images:
     front: https://images.openfoodfacts.org/images/products/085/746/800/6170/front_en.28.400.jpg

@@ -702,7 +702,7 @@
       - Salt
       - Ferrous Gluconate
   categories:
-    - nuts_seeds
+    - vegetable
   nova: 3
   nutriscore: a
   images:
@@ -883,7 +883,7 @@
       - and CALCIUM PROPIONATE
       - SORBIC ACID
   categories:
-    - other
+    - bread
   labels:
     - vegetarian
     - no-gluten

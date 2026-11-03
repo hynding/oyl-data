@@ -2726,7 +2726,7 @@
       - Cumin
       - Oregano
   categories:
-    - other
+    - meat
   labels:
     - no-gmos
     - non-gmo-project
@@ -4143,7 +4143,7 @@
   traces:
     - tree_nuts
   categories:
-    - other
+    - nuts_seeds
   labels:
     - no-gmos
     - australian-made
@@ -4269,7 +4269,7 @@
   allergens:
     - gluten
   categories:
-    - bread
+    - cookies
   labels:
     - organic
     - no-gmos

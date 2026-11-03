@@ -398,7 +398,7 @@
   allergens:
     - soy
   categories:
-    - other
+    - baking
   nova: 4
   nutriscore: e
   images:
@@ -1296,7 +1296,7 @@
       - yellow 5
       - yellow 6
   categories:
-    - other
+    - soda
   nova: 4
   images:
     front: https://images.openfoodfacts.org/images/products/005/200/006/5206/front_en.3.400.jpg

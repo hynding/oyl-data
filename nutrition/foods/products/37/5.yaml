@@ -856,7 +856,7 @@
       - VEGETABLE JUICE
       - FOR COLOR
   categories:
-    - other
+    - candy
   labels:
     - vegetarian
     - kosher
@@ -1121,7 +1121,7 @@
       - APPLES
       - BLUEBERRIES
   categories:
-    - other
+    - fruit
   nova: 1
   nutriscore: c
   images:

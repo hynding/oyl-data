@@ -48,7 +48,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - soda
   source:
     name: fdc
     id: "2710597"
@@ -104,7 +104,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - soda
   source:
     name: fdc
     id: "2710599"
@@ -160,7 +160,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - soda
   source:
     name: fdc
     id: "2710596"
@@ -216,7 +216,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - soda
   source:
     name: fdc
     id: "2710598"
@@ -278,7 +278,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - soda
   source:
     name: fdc
     id: "2710577"
@@ -338,7 +338,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - soda
   source:
     name: fdc
     id: "2710594"

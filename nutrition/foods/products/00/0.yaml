@@ -1968,7 +1968,7 @@
       - vegetable oil
       - salt
   categories:
-    - other
+    - bread
   nova: 3
   nutriscore: d
   images:
@@ -2100,7 +2100,7 @@
   allergens:
     - tree_nuts
   categories:
-    - other
+    - bread
   labels:
     - vegetarian
     - vegan
@@ -3346,7 +3346,7 @@
   allergens:
     - gluten
   categories:
-    - cookies
+    - chips
   labels:
     - vegetarian
     - no-gmos
@@ -3872,7 +3872,7 @@
       - Vitamin B6
       - Vitamin B12
   categories:
-    - other
+    - soda
   nova: 4
   nutriscore: a
   images:

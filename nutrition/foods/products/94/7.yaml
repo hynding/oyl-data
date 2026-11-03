@@ -1141,7 +1141,7 @@
   allergens:
     - gluten
   categories:
-    - other
+    - chips
   nova: 3
   images:
     front: https://images.openfoodfacts.org/images/products/406/146/234/4947/front_en.7.400.jpg

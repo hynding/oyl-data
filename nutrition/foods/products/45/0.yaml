@@ -1111,7 +1111,7 @@
     list:
       - Grapeseed Oil
   categories:
-    - other
+    - oils
   labels:
     - no-gmos
     - non-gmo-project
@@ -1645,7 +1645,7 @@
       - RICE SYRUP
       - SALT
   categories:
-    - other
+    - baking
   labels:
     - no-gluten
     - no-gmos

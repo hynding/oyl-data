@@ -1000,7 +1000,7 @@
   allergens:
     - milk
   categories:
-    - other
+    - supplements
   labels:
     - no-gluten
   nova: 4

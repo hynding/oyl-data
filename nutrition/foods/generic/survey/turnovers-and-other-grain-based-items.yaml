@@ -48,7 +48,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - prepared
   source:
     name: fdc
     id: "2707687"
@@ -100,7 +100,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - prepared
   source:
     name: fdc
     id: "2707688"
@@ -164,7 +164,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - prepared
   source:
     name: fdc
     id: "2708733"
@@ -216,7 +216,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - prepared
   source:
     name: fdc
     id: "2707812"
@@ -268,7 +268,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - prepared
   source:
     name: fdc
     id: "2708746"
@@ -322,7 +322,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - prepared
   source:
     name: fdc
     id: "2708719"
@@ -374,7 +374,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - prepared
   source:
     name: fdc
     id: "2708748"
@@ -426,7 +426,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - prepared
   source:
     name: fdc
     id: "2708749"
@@ -478,7 +478,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - prepared
   source:
     name: fdc
     id: "2708747"
@@ -532,7 +532,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - prepared
   source:
     name: fdc
     id: "2708711"
@@ -586,7 +586,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - prepared
   source:
     name: fdc
     id: "2708712"
@@ -640,7 +640,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - prepared
   source:
     name: fdc
     id: "2708713"
@@ -694,7 +694,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - prepared
   source:
     name: fdc
     id: "2708714"
@@ -748,7 +748,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - prepared
   source:
     name: fdc
     id: "2708709"
@@ -802,7 +802,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - prepared
   source:
     name: fdc
     id: "2708710"
@@ -854,7 +854,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - prepared
   source:
     name: fdc
     id: "2708723"
@@ -906,7 +906,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - prepared
   source:
     name: fdc
     id: "2708727"
@@ -958,7 +958,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - prepared
   source:
     name: fdc
     id: "2708728"
@@ -1012,7 +1012,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - prepared
   source:
     name: fdc
     id: "2708720"
@@ -1076,7 +1076,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - prepared
   source:
     name: fdc
     id: "2708731"
@@ -1130,7 +1130,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - prepared
   source:
     name: fdc
     id: "2708730"
@@ -1188,7 +1188,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - prepared
   source:
     name: fdc
     id: "2708729"
@@ -1252,7 +1252,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - prepared
   source:
     name: fdc
     id: "2708732"
@@ -1304,7 +1304,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - prepared
   source:
     name: fdc
     id: "2710045"
@@ -1356,7 +1356,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - prepared
   source:
     name: fdc
     id: "2709131"
@@ -1410,7 +1410,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - prepared
   source:
     name: fdc
     id: "2708743"
@@ -1464,7 +1464,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - prepared
   source:
     name: fdc
     id: "2708736"
@@ -1518,7 +1518,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - prepared
   source:
     name: fdc
     id: "2708740"
@@ -1572,7 +1572,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - prepared
   source:
     name: fdc
     id: "2708737"
@@ -1626,7 +1626,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - prepared
   source:
     name: fdc
     id: "2708735"
@@ -1680,7 +1680,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - prepared
   source:
     name: fdc
     id: "2708734"
@@ -1734,7 +1734,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - prepared
   source:
     name: fdc
     id: "2708739"
@@ -1788,7 +1788,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - prepared
   source:
     name: fdc
     id: "2708738"
@@ -1842,7 +1842,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - prepared
   source:
     name: fdc
     id: "2708742"
@@ -1896,7 +1896,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - prepared
   source:
     name: fdc
     id: "2708741"
@@ -1948,7 +1948,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - prepared
   source:
     name: fdc
     id: "2709130"

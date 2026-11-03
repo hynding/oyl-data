@@ -905,7 +905,7 @@
     - tree_nuts
     - soy
   categories:
-    - desserts
+    - bread
   labels:
     - no-artificial-flavors
     - no-gmos
@@ -1892,7 +1892,7 @@
     - peanuts
     - soy
   categories:
-    - other
+    - bars
   labels:
     - no-gluten
     - kosher

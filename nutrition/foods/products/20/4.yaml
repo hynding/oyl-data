@@ -2322,7 +2322,7 @@
       - FILTERED WATER
       - BLACK BEANS
   categories:
-    - other
+    - vegetable
   nova: 1
   nutriscore: a
   images:
@@ -2631,7 +2631,7 @@
     - gluten
     - soy
   categories:
-    - other
+    - bread
   nova: 4
   nutriscore: d
   images:

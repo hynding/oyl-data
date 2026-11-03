@@ -116,7 +116,7 @@
   traces:
     - milk
   categories:
-    - other
+    - candy
   labels:
     - no-gluten
     - kosher
@@ -1241,7 +1241,7 @@
   allergens:
     - milk
   categories:
-    - other
+    - chips
   labels:
     - no-gluten
     - certified-gluten-free

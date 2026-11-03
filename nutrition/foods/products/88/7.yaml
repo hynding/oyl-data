@@ -107,7 +107,7 @@
   allergens:
     - tree_nuts
   categories:
-    - snacks_other
+    - nuts_seeds
   labels:
     - kosher
   nova: 3

@@ -744,7 +744,7 @@
   allergens:
     - tree_nuts
   categories:
-    - other
+    - supplements
   nova: 4
   images:
     front: https://images.openfoodfacts.org/images/products/002/791/729/0201/front_en.4.400.jpg

@@ -935,7 +935,7 @@
     - gluten
     - soy
   categories:
-    - candy
+    - cookies
   nova: 4
   nutriscore: c
   images:
@@ -1284,7 +1284,7 @@
     - tree_nuts
     - sesame
   categories:
-    - cereal
+    - cookies
   labels:
     - no-gluten
     - vegetarian

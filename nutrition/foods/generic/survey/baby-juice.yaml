@@ -46,7 +46,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - baby
   source:
     name: fdc
     id: "2709374"
@@ -100,7 +100,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - baby
   source:
     name: fdc
     id: "2709378"
@@ -154,7 +154,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - baby
   source:
     name: fdc
     id: "2709375"
@@ -208,7 +208,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - baby
   source:
     name: fdc
     id: "2709376"
@@ -262,7 +262,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - baby
   source:
     name: fdc
     id: "2709373"
@@ -316,7 +316,7 @@
     caffeine: 0
     alcohol: 0
   categories:
-    - other
+    - baby
   source:
     name: fdc
     id: "2709377"

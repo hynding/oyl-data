@@ -709,7 +709,7 @@
   allergens:
     - tree_nuts
   categories:
-    - plant_protein
+    - dairy_alternative
   labels:
     - low-or-no-sugar
     - low-sugar

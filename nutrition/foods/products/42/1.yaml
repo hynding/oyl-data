@@ -128,7 +128,7 @@
       - DISODIUM EDTA
       - "110"
   categories:
-    - other
+    - vegetable
   labels:
     - no-bisphenol-a
   nova: 4
@@ -954,7 +954,7 @@
       - palm oil
       - sea salt
   categories:
-    - other
+    - chips
   nova: 3
   nutriscore: d
   images:
