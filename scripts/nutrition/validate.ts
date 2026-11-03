@@ -38,6 +38,9 @@ export function validateNutrition({ quick = false, extraDir }: ValidateOptions =
   dupes(refs.units.map((u) => u.id), `${DOMAIN}/units.yaml`);
   dupes(refs.allergens.map((a) => a.id), `${DOMAIN}/allergens.yaml`);
   dupes(flattenCategories(refs.categories).map((c) => c.id), `${DOMAIN}/categories.yaml`);
+  // A source key mapped to two categories would silently go to whichever comes first.
+  dupes(flattenCategories(refs.categories).flatMap((c) => c.off), `${DOMAIN}/categories.yaml off`);
+  dupes(flattenCategories(refs.categories).flatMap((c) => c.fdc.map((n) => n.toLowerCase())), `${DOMAIN}/categories.yaml fdc`);
 
   // 2. Food files
   const wrapper = ajv.compile({ type: 'array', items: schemaJson('food') });

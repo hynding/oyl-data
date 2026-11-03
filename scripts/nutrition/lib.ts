@@ -115,14 +115,16 @@ export function parseServing(text: string | null | undefined, units: Unit[]): { 
 
 
 
-/** Case-insensitive substring matcher from FDC / WWEIA category descriptions → OYL category id (first match in file order). */
+/**
+ * FDC food_category / WWEIA category description → OYL category id, by exact (case-insensitive)
+ * name. Not substring: "Pasta mixed dishes, excludes macaroni and cheese" hit `Cheese` and
+ * "Popcorn" hit `Corn`. A renamed upstream category lands in `other` and shows up in the
+ * shard report instead of being misfiled silently.
+ */
 export function makeFdcCategoryMatcher(cats: Category[]) {
-  const rules = flattenCategories(cats).flatMap((c) => c.fdc.map((needle) => [needle.toLowerCase(), c.id] as const));
-  return (description: string | null | undefined): string => {
-    const d = (description ?? '').toLowerCase();
-    for (const [needle, id] of rules) if (d.includes(needle)) return id;
-    return 'other';
-  };
+  const byName = new Map<string, string>();
+  for (const c of flattenCategories(cats)) for (const name of c.fdc) byName.set(name.trim().toLowerCase(), c.id);
+  return (description: string | null | undefined): string => byName.get((description ?? '').trim().toLowerCase()) ?? 'other';
 }
 
 /**
