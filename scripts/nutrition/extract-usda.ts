@@ -36,9 +36,12 @@ const template = readFileSync(resolve(ROOT, 'scripts/nutrition/extract-usda.sql'
 function categoryCte(dir: string): string {
   const csv = (f: string) => `read_csv('${dir}/${f}', all_varchar = true, header = true)`;
   if (existsSync(resolve(dir, 'survey_fndds_food.csv')) && existsSync(resolve(dir, 'wweia_food_category.csv'))) {
+    // The data dictionary says wweia_category_code; the 2024-10 CSV ships wweia_category_number.
+    const header = readFileSync(resolve(dir, 'survey_fndds_food.csv'), 'utf8').split('\n', 1)[0];
+    const code = header.includes('"wweia_category_number"') ? 'wweia_category_number' : 'wweia_category_code';
     return `SELECT s.fdc_id, w.wweia_food_category_description AS category
             FROM ${csv('survey_fndds_food.csv')} s
-            LEFT JOIN ${csv('wweia_food_category.csv')} w ON w.wweia_food_category = s.wweia_category_code`;
+            LEFT JOIN ${csv('wweia_food_category.csv')} w ON w.wweia_food_category = s.${code}`;
   }
   if (existsSync(resolve(dir, 'food_category.csv'))) {
     return `SELECT f.fdc_id, fc.description AS category
@@ -46,6 +49,14 @@ function categoryCte(dir: string): string {
             JOIN ${csv('food_category.csv')} fc ON fc.id = f.food_category_id`;
   }
   return `SELECT NULL AS fdc_id, NULL AS category WHERE false`;
+}
+
+/** Which nutrient.csv column food_nutrient.nutrient_id points at: `id`, or `nutrient_nbr` (FNDDS). */
+async function nutrientKey(dir: string): Promise<'id' | 'nutrient_nbr'> {
+  const csv = (f: string) => `read_csv('${dir}/${f}', all_varchar = true, header = true)`;
+  const r = await conn.runAndReadAll(`SELECT count(*) FROM (SELECT nutrient_id FROM ${csv('food_nutrient.csv')} LIMIT 1000) fn
+                                      JOIN ${csv('nutrient.csv')} n ON n.id = fn.nutrient_id`);
+  return Number(r.getRows()[0][0]) > 0 ? 'id' : 'nutrient_nbr';
 }
 
 const ws = stats ? null : createWriteStream(out);
@@ -57,6 +68,7 @@ for (const dataset of found) {
     .replaceAll('{{DIR}}', dir)
     .replaceAll('{{DATASET}}', dataset)
     .replaceAll('{{CATEGORY_CTE}}', categoryCte(dir))
+    .replaceAll('{{NUTRIENT_KEY}}', await nutrientKey(dir))
     .replaceAll('{{LIMIT}}', limit ? `LIMIT ${Number(limit)}` : '');
 
   if (stats) {

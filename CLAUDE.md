@@ -8,8 +8,8 @@ adding more.
 
 - **YAML is the source of truth; `dist/` is a build artifact.** Fix the mapping or the
   reference tables and regenerate — never hand-edit a generated file (they say so in
-  their first line). Hand-curated files (`nutrition/foods/generic/`, the `<domain>/*.yaml`
-  tables) are edited directly.
+  their first line). Hand-curated files (the `<domain>/*.yaml` reference tables) are
+  edited directly.
 - **Normalize at extract time.** Source-specific keys, units and quirks are mapped onto
   our own ids and units in the extract/shard scripts. Nothing downstream — SQLite, OYL —
   should know what Open Food Facts or USDA call a field.
@@ -156,6 +156,12 @@ Candidate domains and sources already scouted, for when they come up:
   foods lack nutrient 1008 (Energy); use 2048/2047 Atwater. SR Legacy encodes brands in the
   description ("McDONALD'S, Big Mac"). FNDDS has no food_category; use WWEIA via
   survey_fndds_food. `measure_unit` 9999 = "undetermined" → use portion_description.
+- The FDC fixtures were written from the data dictionary and passed while real data failed.
+  Real files differ: Foundation's food.csv is ~77k lab-sample rows around 436 foods (filter
+  on `data_type`); FNDDS `food_nutrient.nutrient_id` is the legacy `nutrient_nbr`, not
+  `nutrient.id`; `survey_fndds_food` has `wweia_category_number`, not `_code`. Build
+  fixtures by copying rows out of the real download.
+- macOS ships bash 3.2: no `declare -A`, no `${x,,}`. CI is Linux, so it won't catch it.
 - A `const` table declared below a top-level `for await` that uses it is a TDZ error.
 - Real data has negative nutrient values, completeness > 1, serving size 0 — sanitize
   before validating, and keep the validator strict.

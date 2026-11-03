@@ -5,18 +5,24 @@
 --
 -- food_category (SR Legacy / Foundation) and wweia_food_category (FNDDS) are both
 -- optional joins; whichever exists supplies `category`.
+--
+-- The Foundation bundle's food.csv also holds the lab samples behind each food
+-- (sub_sample_food, market_acquisition, …: ~77k rows for ~436 foods); keep only foods.
+-- FNDDS food_nutrient.nutrient_id is the legacy nutrient_nbr, not nutrient.id —
+-- {{NUTRIENT_KEY}} picks the column, and we always emit n.id.
 
 WITH food AS (
   SELECT fdc_id, data_type, description, food_category_id
   FROM read_csv('{{DIR}}/food.csv', all_varchar = true, header = true)
+  WHERE data_type IN ('foundation_food', 'sr_legacy_food', 'survey_fndds_food')
 ),
 nutrients AS (
   SELECT fn.fdc_id,
-         list(struct_pack(id := CAST(fn.nutrient_id AS INTEGER),
+         list(struct_pack(id := CAST(n.id AS INTEGER),
                           amount := CAST(fn.amount AS DOUBLE),
                           unit := n.unit_name)) AS nutrients
   FROM read_csv('{{DIR}}/food_nutrient.csv', all_varchar = true, header = true) fn
-  JOIN read_csv('{{DIR}}/nutrient.csv', all_varchar = true, header = true) n ON n.id = fn.nutrient_id
+  JOIN read_csv('{{DIR}}/nutrient.csv', all_varchar = true, header = true) n ON n.{{NUTRIENT_KEY}} = fn.nutrient_id
   WHERE fn.amount IS NOT NULL AND fn.amount <> ''
   GROUP BY fn.fdc_id
 ),
