@@ -1,4 +1,4 @@
-# Tag a commit (e.g. v2026.10) to build dist/oyl-data.sqlite and attach it to a GitHub Release.
+# Tag a commit v<YYYY>.<MM>.<DD> (e.g. v2026.11.10) to build dist/oyl-data.sqlite and attach it to a GitHub Release.
 # OYL pins a tag and downloads the asset; manifest.json carries schema_version and counts.
 name: release
 on:

@@ -3,7 +3,8 @@
  *
  *   pnpm shard:off
  *   pnpm shard:off --in .cache/off-us.jsonl --limit 500 --out /tmp/preview
- *   pnpm shard:off --force                 # overwrite even if the product count drops > 20%
+ *   pnpm shard:off --force                 # overwrite even if the product count drops > 20%, or the extract
+ *                                          # isn't a full one at the default cutoff (see off-us.jsonl.meta.json)
  *
  * Shard layout: nutrition/foods/products/<gtin[-3:-1]>/<gtin[-1]>.yaml — 1,000 files keyed on the
  * trailing digits, which spread evenly (GTIN prefixes cluster hard on big brands).
@@ -11,13 +12,13 @@
  * Each file is a YAML list of Food records (schema/food.schema.json).
  */
 import fg from 'fast-glob';
-import { createReadStream, mkdirSync, rmSync, writeFileSync } from 'node:fs';
+import { createReadStream, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { createInterface } from 'node:readline';
 import { stringify } from 'yaml';
 import {
-  CACHE, DOMAIN_DIR, loadRefs, refreshGuard, makeOffAllergenMatcher, makeOffCategoryMatcher,
-  parseServing, toGtin14, gtinAliases, round, slug, type Food,
+  CACHE, DOMAIN_DIR, OFF_MIN_SCANS, loadRefs, metaPath, refreshGuard, makeOffAllergenMatcher, makeOffCategoryMatcher,
+  parseServing, toGtin14, gtinAliases, round, slug, type ExtractMeta, type Food,
 } from './lib.ts';
 
 const args = process.argv.slice(2);
@@ -25,6 +26,22 @@ const opt = (name: string) => { const i = args.indexOf(`--${name}`); return i >=
 const input = opt('in') ?? resolve(CACHE, 'off-us.jsonl');
 const limit = opt('limit') ? Number(opt('limit')) : Infinity;
 const outDir = resolve(opt('out') ?? resolve(DOMAIN_DIR, 'foods/products'));
+
+// Say which extract this is, and don't write the committed shards from a sample, another cutoff,
+// or a JSONL of unknown origin (a stale ≥ 1-scan extract once got sharded as if it were ≥ 2).
+const meta: ExtractMeta | null = existsSync(metaPath(input)) ? JSON.parse(readFileSync(metaPath(input), 'utf8')) : null;
+console.log(meta
+  ? `input: ${meta.rows.toLocaleString()} rows, scans ≥ ${meta.min_scans}${meta.limit ? `, --limit ${meta.limit}` : ''}, Parquet of ${meta.source_modified ?? meta.source}, extracted ${meta.extracted_at.slice(0, 10)}`
+  : `input: ${input} (no .meta.json — filter unknown)`);
+if (!opt('out') && !args.includes('--force')) {
+  const why = !meta ? 'its filter is unknown (no .meta.json; extracts made before it existed lack one)'
+    : meta.min_scans !== OFF_MIN_SCANS ? `it was extracted with --min-scans ${meta.min_scans}, not the default ${OFF_MIN_SCANS}`
+    : meta.limit ? `it is a --limit ${meta.limit} sample` : null;
+  if (why) {
+    console.error(`refusing to write ${outDir}: ${why}. Re-run pnpm extract:off, or pass --force if this is deliberate.`);
+    process.exit(3);
+  }
+}
 
 const { nutrients, units, allergens, categories } = loadRefs();
 const nutrientByOff = new Map(nutrients.filter((n) => n.off).map((n) => [n.off!, n]));

@@ -13,9 +13,9 @@
  * extract-off.sql. shard-products.ts turns that into nutrition/foods/products/**.
  */
 import { DuckDBInstance } from '@duckdb/node-api';
-import { existsSync, mkdirSync, readFileSync, writeFileSync, createWriteStream } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, rmSync, statSync, writeFileSync, createWriteStream } from 'node:fs';
 import { resolve } from 'node:path';
-import { CACHE, ROOT } from './lib.ts';
+import { CACHE, ROOT, OFF_MIN_SCANS, metaPath, type ExtractMeta } from './lib.ts';
 
 const HF_URL = 'https://huggingface.co/datasets/openfoodfacts/product-database/resolve/main/food.parquet';
 
@@ -27,8 +27,8 @@ const source = opt('source') ?? (existsSync(LOCAL) ? LOCAL : HF_URL);
 const limit = opt('limit');
 const describe = args.includes('--describe');
 const out = opt('out') ?? resolve(CACHE, 'off-us.jsonl');
-// Default to products ≥ 2 people have scanned (~28k, ~55 MB of YAML). 0 = everything with completeness ≥ 0.5 (~290k, ~500 MB).
-const minScans = opt('min-scans') !== undefined ? Number(opt('min-scans')) : 2;
+// Default to products ≥ 2 people have scanned (~27k, ~47 MB of YAML). 0 = everything with completeness ≥ 0.5 (~290k, ~500 MB).
+const minScans = opt('min-scans') !== undefined ? Number(opt('min-scans')) : OFF_MIN_SCANS;
 
 mkdirSync(CACHE, { recursive: true });
 
@@ -105,6 +105,7 @@ const started = Date.now();
 
 const result = await conn.stream(sql);
 const columns = result.columnNames();
+rmSync(metaPath(out), { force: true }); // a crashed run must not leave the previous run's meta beside a partial file
 const ws = createWriteStream(out);
 let n = 0;
 for (;;) {
@@ -118,7 +119,17 @@ for (;;) {
   }
   if (n % 50_000 < chunk.rowCount) process.stdout.write(`  ${n.toLocaleString()} rows\r`);
 }
-ws.end();
+ws.end(() => {
+  const meta: ExtractMeta = {
+    source,
+    source_modified: /^https?:/.test(source) ? null : statSync(source).mtime.toISOString().slice(0, 10),
+    min_scans: minScans,
+    limit: limit ? Number(limit) : null,
+    rows: n,
+    extracted_at: new Date().toISOString(),
+  };
+  writeFileSync(metaPath(out), JSON.stringify(meta, null, 2) + '\n');
+});
 console.log(`\n${n.toLocaleString()} products in ${((Date.now() - started) / 1000).toFixed(0)}s`);
 
 /** The column an `-- optional` SQL line depends on: the argument of en_text()/to_json()/coalesce(), else the first identifier. */
