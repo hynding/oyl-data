@@ -365,7 +365,8 @@
     license: CC0
 - id: fdc:2708148
   kind: generic
-  name: Crackers, butter (Ritz)
+  name: Crackers, butter
+  brand: Ritz
   basis: 100g
   portions:
     - description: 1 cracker
@@ -759,7 +760,8 @@
     license: CC0
 - id: fdc:2708151
   kind: generic
-  name: Crackers, cheese (Cheez-It)
+  name: Crackers, cheese
+  brand: Cheez-It
   basis: 100g
   portions:
     - description: 1 cracker
@@ -821,7 +823,8 @@
     license: CC0
 - id: fdc:2708152
   kind: generic
-  name: Crackers, cheese (Goldfish)
+  name: Crackers, cheese
+  brand: Goldfish
   basis: 100g
   portions:
     - description: 1 goldfish
@@ -1601,7 +1604,8 @@
     license: CC0
 - id: fdc:2708177
   kind: generic
-  name: Crackers, sandwich, cheese filled (Ritz)
+  name: Crackers, sandwich, cheese filled
+  brand: Ritz
   basis: 100g
   portions:
     - description: 1 sandwich
@@ -1719,7 +1723,8 @@
     license: CC0
 - id: fdc:2708173
   kind: generic
-  name: Crackers, sandwich, peanut butter filled (Ritz)
+  name: Crackers, sandwich, peanut butter filled
+  brand: Ritz
   basis: 100g
   portions:
     - description: 1 sandwich
@@ -1955,7 +1960,8 @@
     license: CC0
 - id: fdc:2708186
   kind: generic
-  name: Crackers, wheat, flavored (Wheat Thins)
+  name: Crackers, wheat, flavored
+  brand: Wheat Thins
   basis: 100g
   portions:
     - description: 1 cracker
@@ -2015,7 +2021,8 @@
     license: CC0
 - id: fdc:2708185
   kind: generic
-  name: Crackers, wheat, plain (Wheat Thins)
+  name: Crackers, wheat, plain
+  brand: Wheat Thins
   basis: 100g
   portions:
     - description: 1 cracker
@@ -2307,7 +2314,8 @@
     license: CC0
 - id: fdc:2708182
   kind: generic
-  name: Crackers, woven wheat, flavored (Triscuit)
+  name: Crackers, woven wheat, flavored
+  brand: Triscuit
   basis: 100g
   portions:
     - description: 1 cracker
@@ -2365,7 +2373,8 @@
     license: CC0
 - id: fdc:2708181
   kind: generic
-  name: Crackers, woven wheat, plain (Triscuit)
+  name: Crackers, woven wheat, plain
+  brand: Triscuit
   basis: 100g
   portions:
     - description: 1 cracker

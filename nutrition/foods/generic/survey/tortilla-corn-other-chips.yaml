@@ -123,7 +123,8 @@
     license: CC0
 - id: fdc:2708203
   kind: generic
-  name: Cheese flavored corn snacks (Cheetos)
+  name: Cheese flavored corn snacks
+  brand: Cheetos
   basis: 100g
   portions:
     - description: 1 piece
@@ -371,7 +372,8 @@
     license: CC0
 - id: fdc:2708199
   kind: generic
-  name: Corn chips, flavored (Fritos)
+  name: Corn chips, flavored
+  brand: Fritos
   basis: 100g
   portions:
     - description: 1 chip
@@ -495,7 +497,8 @@
     license: CC0
 - id: fdc:2708198
   kind: generic
-  name: Corn chips, plain (Fritos)
+  name: Corn chips, plain
+  brand: Fritos
   basis: 100g
   portions:
     - description: 1 chip
@@ -733,7 +736,8 @@
     license: CC0
 - id: fdc:2708290
   kind: generic
-  name: Multigrain chips (Sun Chips)
+  name: Multigrain chips
+  brand: Sun Chips
   basis: 100g
   portions:
     - description: 1 chip
@@ -1321,7 +1325,8 @@
     license: CC0
 - id: fdc:2708207
   kind: generic
-  name: Tortilla chips, cool ranch flavor (Doritos)
+  name: Tortilla chips, cool ranch flavor
+  brand: Doritos
   basis: 100g
   portions:
     - description: 1 chip
@@ -1505,7 +1510,8 @@
     license: CC0
 - id: fdc:2708206
   kind: generic
-  name: Tortilla chips, nacho cheese flavor (Doritos)
+  name: Tortilla chips, nacho cheese flavor
+  brand: Doritos
   basis: 100g
   portions:
     - description: 1 chip
@@ -1567,7 +1573,8 @@
     license: CC0
 - id: fdc:2708208
   kind: generic
-  name: Tortilla chips, other flavors (Doritos)
+  name: Tortilla chips, other flavors
+  brand: Doritos
   basis: 100g
   portions:
     - description: 1 chip

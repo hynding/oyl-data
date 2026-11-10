@@ -59,7 +59,8 @@
     license: CC0
 - id: fdc:2710724
   kind: generic
-  name: Nutritional drink or shake, high protein, ready-to-drink (Slim Fast)
+  name: Nutritional drink or shake, high protein, ready-to-drink
+  brand: Slim Fast
   basis: 100g
   portions:
     - description: 1 cup
@@ -229,65 +230,10 @@
     dataset: survey
     url: https://fdc.nal.usda.gov/food-details/2710728/nutrients
     license: CC0
-- id: fdc:2710715
-  kind: generic
-  name: Nutritional drink or shake, ready-to-drink (Boost Plus)
-  basis: 100g
-  portions:
-    - description: 1 cup
-      grams: 256
-    - description: 1 fl oz
-      grams: 32
-    - description: 1 bottle (8 fl oz)
-      grams: 256
-    - description: Quantity not specified
-      grams: 256
-  nutrients:
-    energy: 138
-    fat: 5.38
-    fat_saturated: 0.42
-    fat_polyunsaturated: 0.122
-    fat_monounsaturated: 2.551
-    cholesterol: 4
-    sodium: 77
-    carbohydrate: 17.29
-    fiber: 1.2
-    sugars: 8.46
-    protein: 5.38
-    vitamin_d: 2.3
-    calcium: 135
-    iron: 1.73
-    potassium: 138
-    vitamin_a: 84
-    vitamin_c: 23.1
-    vitamin_e: 5.19
-    vitamin_k: 12.3
-    thiamin: 0.144
-    riboflavin: 0.163
-    niacin: 1.537
-    vitamin_b6: 0.269
-    folate: 65
-    vitamin_b12: 0.81
-    phosphorus: 115
-    magnesium: 38
-    zinc: 1.73
-    selenium: 6.7
-    copper: 0.192
-    choline: 21.1
-    water: 71.1
-    caffeine: 0
-    alcohol: 0
-  categories:
-    - beverage_other
-  source:
-    name: fdc
-    id: "2710715"
-    dataset: survey
-    url: https://fdc.nal.usda.gov/food-details/2710715/nutrients
-    license: CC0
 - id: fdc:2710714
   kind: generic
-  name: Nutritional drink or shake, ready-to-drink (Boost)
+  name: Nutritional drink or shake, ready-to-drink
+  brand: Boost
   basis: 100g
   portions:
     - description: 1 cup
@@ -341,9 +287,67 @@
     dataset: survey
     url: https://fdc.nal.usda.gov/food-details/2710714/nutrients
     license: CC0
+- id: fdc:2710715
+  kind: generic
+  name: Nutritional drink or shake, ready-to-drink
+  brand: Boost Plus
+  basis: 100g
+  portions:
+    - description: 1 cup
+      grams: 256
+    - description: 1 fl oz
+      grams: 32
+    - description: 1 bottle (8 fl oz)
+      grams: 256
+    - description: Quantity not specified
+      grams: 256
+  nutrients:
+    energy: 138
+    fat: 5.38
+    fat_saturated: 0.42
+    fat_polyunsaturated: 0.122
+    fat_monounsaturated: 2.551
+    cholesterol: 4
+    sodium: 77
+    carbohydrate: 17.29
+    fiber: 1.2
+    sugars: 8.46
+    protein: 5.38
+    vitamin_d: 2.3
+    calcium: 135
+    iron: 1.73
+    potassium: 138
+    vitamin_a: 84
+    vitamin_c: 23.1
+    vitamin_e: 5.19
+    vitamin_k: 12.3
+    thiamin: 0.144
+    riboflavin: 0.163
+    niacin: 1.537
+    vitamin_b6: 0.269
+    folate: 65
+    vitamin_b12: 0.81
+    phosphorus: 115
+    magnesium: 38
+    zinc: 1.73
+    selenium: 6.7
+    copper: 0.192
+    choline: 21.1
+    water: 71.1
+    caffeine: 0
+    alcohol: 0
+  categories:
+    - beverage_other
+  source:
+    name: fdc
+    id: "2710715"
+    dataset: survey
+    url: https://fdc.nal.usda.gov/food-details/2710715/nutrients
+    license: CC0
 - id: fdc:2710716
   kind: generic
-  name: Nutritional drink or shake, ready-to-drink (Carnation Instant Breakfast)
+  name: Nutritional drink or shake, ready-to-drink
+  brand: Carnation Instant Breakfast
   basis: 100g
   portions:
     - description: 1 cup
@@ -397,9 +401,67 @@
     dataset: survey
     url: https://fdc.nal.usda.gov/food-details/2710716/nutrients
     license: CC0
+- id: fdc:2710717
+  kind: generic
+  name: Nutritional drink or shake, ready-to-drink
+  brand: Ensure
+  basis: 100g
+  portions:
+    - description: 1 cup
+      grams: 252
+    - description: Quantity not specified
+      grams: 252
+    - description: 1 fl oz
+      grams: 31.5
+    - description: 1 bottle (8 fl oz)
+      grams: 252
+  nutrients:
+    energy: 105
+    fat: 2.53
+    fat_saturated: 0.422
+    fat_polyunsaturated: 1.266
+    fat_monounsaturated: 0.844
+    cholesterol: 2
+    sodium: 84
+    carbohydrate: 16.88
+    fiber: 0
+    sugars: 9.7
+    protein: 3.8
+    vitamin_d: 1.1
+    calcium: 127
+    iron: 1.9
+    potassium: 156
+    vitamin_a: 158
+    vitamin_c: 12.7
+    vitamin_e: 1.42
+    vitamin_k: 8.4
+    thiamin: 0.158
+    riboflavin: 0.179
+    niacin: 2.11
+    vitamin_b6: 0.211
+    folate: 72
+    vitamin_b12: 0.63
+    phosphorus: 105
+    magnesium: 42
+    zinc: 1.58
+    selenium: 7.4
+    copper: 0.211
+    choline: 32.4
+    water: 76.2
+    caffeine: 0
+    alcohol: 0
+  categories:
+    - beverage_other
+  source:
+    name: fdc
+    id: "2710717"
+    dataset: survey
+    url: https://fdc.nal.usda.gov/food-details/2710717/nutrients
+    license: CC0
 - id: fdc:2710718
   kind: generic
-  name: Nutritional drink or shake, ready-to-drink (Ensure Plus)
+  name: Nutritional drink or shake, ready-to-drink
+  brand: Ensure Plus
   basis: 100g
   portions:
     - description: 1 cup
@@ -455,65 +517,10 @@
     dataset: survey
     url: https://fdc.nal.usda.gov/food-details/2710718/nutrients
     license: CC0
-- id: fdc:2710717
-  kind: generic
-  name: Nutritional drink or shake, ready-to-drink (Ensure)
-  basis: 100g
-  portions:
-    - description: 1 cup
-      grams: 252
-    - description: Quantity not specified
-      grams: 252
-    - description: 1 fl oz
-      grams: 31.5
-    - description: 1 bottle (8 fl oz)
-      grams: 252
-  nutrients:
-    energy: 105
-    fat: 2.53
-    fat_saturated: 0.422
-    fat_polyunsaturated: 1.266
-    fat_monounsaturated: 0.844
-    cholesterol: 2
-    sodium: 84
-    carbohydrate: 16.88
-    fiber: 0
-    sugars: 9.7
-    protein: 3.8
-    vitamin_d: 1.1
-    calcium: 127
-    iron: 1.9
-    potassium: 156
-    vitamin_a: 158
-    vitamin_c: 12.7
-    vitamin_e: 1.42
-    vitamin_k: 8.4
-    thiamin: 0.158
-    riboflavin: 0.179
-    niacin: 2.11
-    vitamin_b6: 0.211
-    folate: 72
-    vitamin_b12: 0.63
-    phosphorus: 105
-    magnesium: 42
-    zinc: 1.58
-    selenium: 7.4
-    copper: 0.211
-    choline: 32.4
-    water: 76.2
-    caffeine: 0
-    alcohol: 0
-  categories:
-    - beverage_other
-  source:
-    name: fdc
-    id: "2710717"
-    dataset: survey
-    url: https://fdc.nal.usda.gov/food-details/2710717/nutrients
-    license: CC0
 - id: fdc:2710720
   kind: generic
-  name: Nutritional drink or shake, ready-to-drink (Muscle Milk)
+  name: Nutritional drink or shake, ready-to-drink
+  brand: Muscle Milk
   basis: 100g
   portions:
     - description: 1 cup
@@ -573,7 +580,8 @@
     license: CC0
 - id: fdc:2710722
   kind: generic
-  name: Nutritional drink or shake, ready-to-drink (Slim Fast)
+  name: Nutritional drink or shake, ready-to-drink
+  brand: Slim Fast
   basis: 100g
   portions:
     - description: 1 cup
@@ -629,7 +637,8 @@
     license: CC0
 - id: fdc:2710721
   kind: generic
-  name: Nutritional drink or shake, ready-to-drink, light (Muscle Milk)
+  name: Nutritional drink or shake, ready-to-drink, light
+  brand: Muscle Milk
   basis: 100g
   portions:
     - description: 1 cup
@@ -745,7 +754,8 @@
     license: CC0
 - id: fdc:2710719
   kind: generic
-  name: Nutritional drink or shake, ready-to-drink, sugar free (Glucerna)
+  name: Nutritional drink or shake, ready-to-drink, sugar free
+  brand: Glucerna
   basis: 100g
   portions:
     - description: 1 fl oz
@@ -801,7 +811,8 @@
     license: CC0
 - id: fdc:2710723
   kind: generic
-  name: Nutritional drink or shake, ready-to-drink, sugar free (Slim Fast)
+  name: Nutritional drink or shake, ready-to-drink, sugar free
+  brand: Slim Fast
   basis: 100g
   portions:
     - description: 1 cup

@@ -5273,7 +5273,8 @@
     license: CC0
 - id: fdc:2708134
   kind: generic
-  name: Graham crackers (Teddy Grahams)
+  name: Graham crackers
+  brand: Teddy Grahams
   basis: 100g
   portions:
     - description: 1 cracker

@@ -825,69 +825,10 @@
     dataset: survey
     url: https://fdc.nal.usda.gov/food-details/2710567/nutrients
     license: CC0
-- id: fdc:2710600
-  kind: generic
-  name: Fruit juice drink (Capri Sun)
-  basis: 100g
-  portions:
-    - description: 1 fl oz (no ice)
-      grams: 31
-    - description: 1 fl oz (with ice)
-      grams: 23
-    - description: 1 fl oz (NFS)
-      grams: 31
-    - description: 1 Capri Sun pouch
-      grams: 186
-    - description: 1 fun size box (4.23 fl oz)
-      grams: 131
-    - description: Quantity not specified
-      grams: 248
-  nutrients:
-    energy: 39
-    fat: 0.07
-    fat_saturated: 0.008
-    fat_polyunsaturated: 0.014
-    fat_monounsaturated: 0.012
-    cholesterol: 0
-    sodium: 2
-    carbohydrate: 10
-    fiber: 0
-    sugars: 9
-    protein: 0
-    vitamin_d: 0
-    calcium: 5
-    iron: 0.04
-    potassium: 11
-    vitamin_a: 0
-    vitamin_c: 0
-    vitamin_e: 0.68
-    vitamin_k: 0
-    thiamin: 0
-    riboflavin: 0
-    niacin: 0.015
-    vitamin_b6: 0
-    folate: 1
-    vitamin_b12: 0
-    phosphorus: 1
-    magnesium: 2
-    zinc: 0.02
-    selenium: 0.2
-    copper: 0
-    choline: 0.5
-    water: 87.58
-    caffeine: 0
-    alcohol: 0
-  categories:
-    - juice
-  source:
-    name: fdc
-    id: "2710600"
-    dataset: survey
-    url: https://fdc.nal.usda.gov/food-details/2710600/nutrients
-    license: CC0
 - id: fdc:2710582
   kind: generic
-  name: Fruit juice drink (Sunny D)
+  name: Fruit juice drink
+  brand: Sunny D
   basis: 100g
   portions:
     - description: Quantity not specified
@@ -947,9 +888,71 @@
     dataset: survey
     url: https://fdc.nal.usda.gov/food-details/2710582/nutrients
     license: CC0
+- id: fdc:2710600
+  kind: generic
+  name: Fruit juice drink
+  brand: Capri Sun
+  basis: 100g
+  portions:
+    - description: 1 fl oz (no ice)
+      grams: 31
+    - description: 1 fl oz (with ice)
+      grams: 23
+    - description: 1 fl oz (NFS)
+      grams: 31
+    - description: 1 Capri Sun pouch
+      grams: 186
+    - description: 1 fun size box (4.23 fl oz)
+      grams: 131
+    - description: Quantity not specified
+      grams: 248
+  nutrients:
+    energy: 39
+    fat: 0.07
+    fat_saturated: 0.008
+    fat_polyunsaturated: 0.014
+    fat_monounsaturated: 0.012
+    cholesterol: 0
+    sodium: 2
+    carbohydrate: 10
+    fiber: 0
+    sugars: 9
+    protein: 0
+    vitamin_d: 0
+    calcium: 5
+    iron: 0.04
+    potassium: 11
+    vitamin_a: 0
+    vitamin_c: 0
+    vitamin_e: 0.68
+    vitamin_k: 0
+    thiamin: 0
+    riboflavin: 0
+    niacin: 0.015
+    vitamin_b6: 0
+    folate: 1
+    vitamin_b12: 0
+    phosphorus: 1
+    magnesium: 2
+    zinc: 0.02
+    selenium: 0.2
+    copper: 0
+    choline: 0.5
+    water: 87.58
+    caffeine: 0
+    alcohol: 0
+  categories:
+    - juice
+  source:
+    name: fdc
+    id: "2710600"
+    dataset: survey
+    url: https://fdc.nal.usda.gov/food-details/2710600/nutrients
+    license: CC0
 - id: fdc:2710601
   kind: generic
-  name: Fruit juice drink, added calcium (Sunny D)
+  name: Fruit juice drink, added calcium
+  brand: Sunny D
   basis: 100g
   portions:
     - description: Quantity not specified
