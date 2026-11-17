@@ -160,7 +160,9 @@ WHERE f.id = 'fdc:173944' AND n.id IN ('energy', 'protein', 'fiber');
 ```
 
 `manifest.json` next to the SQLite carries a top-level `schema_version`, per-domain versions
-and counts, and a build timestamp; check `schema_version` before loading.
+and counts, and a build timestamp; check `schema_version` before loading. Release builds also
+carry `release` (the tag, e.g. `v2026.11.17`); local builds don't. The same keys are in the
+SQLite `meta` table, so the file is self-describing without the manifest.
 
 ## Licenses
 

@@ -16,6 +16,7 @@ jobs:
         with: { node-version: 22, cache: pnpm }
       - run: pnpm install --frozen-lockfile
       - run: pnpm check
+        env: { OYL_DATA_RELEASE: '${{ github.ref_name }}' }
       - run: |
           cd dist
           gzip -9 -k oyl-data.sqlite
