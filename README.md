@@ -94,7 +94,8 @@ not that products vanished — and `--force` overrides. Ids are `off:<gtin14>` a
 change, so anything in OYL that references a food survives a refresh; OYL should mark a
 food that disappears from the seed as archived rather than delete it.
 
-To publish a build, tag the commit: `git tag v2026.10 && git push --tags`. The release
+To publish a build, tag the commit: `git tag -a v2026.11.10 -m "…" && git push origin v2026.11.10`
+(tags are `v<YYYY>.<MM>.<DD>`, the release date). The release
 workflow runs `pnpm check` and attaches `oyl-data.sqlite.gz`, `manifest.json` and
 checksums to a GitHub Release. OYL pins a tag and checks `schema_version` in the manifest.
 
@@ -159,7 +160,9 @@ WHERE f.id = 'fdc:173944' AND n.id IN ('energy', 'protein', 'fiber');
 ```
 
 `manifest.json` next to the SQLite carries a top-level `schema_version`, per-domain versions
-and counts, and a build timestamp; check `schema_version` before loading.
+and counts, and a build timestamp; check `schema_version` before loading. Release builds also
+carry `release` (the tag, e.g. `v2026.11.17`); local builds don't. The same keys are in the
+SQLite `meta` table, so the file is self-describing without the manifest.
 
 ## Licenses
 

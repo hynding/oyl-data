@@ -14,7 +14,8 @@ Layout: `<dataset>/<source-category>.yaml`, one reviewable YAML list per FDC foo
   "Cheeseburger, from fast food", with household portions)
 
 The same food often appears in more than one dataset; `shard-generic.ts` keeps one per
-normalized name, preferring foundation > sr_legacy > survey.
+normalized brand + name, preferring foundation > sr_legacy > survey — except branded chain
+items, where the newer FNDDS wins (more portions; SR Legacy froze in 2018).
 
 Data: U.S. Department of Agriculture, Agricultural Research Service. FoodData Central.
 Public domain (CC0) — see `../../../LICENSE-DATA.md`.

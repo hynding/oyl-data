@@ -8,6 +8,12 @@ export { ROOT, CACHE, DIST, loadYaml, round, slug, args, opt, flag } from '../li
 /** Repo-relative directory this domain's YAML lives in. */
 export const DOMAIN = 'nutrition';
 export const DOMAIN_DIR = resolve(ROOT, DOMAIN);
+
+/** OFF popularity cutoff for the committed products: scanned by ≥ 2 people (README, "How much to seed"). */
+export const OFF_MIN_SCANS = 2;
+/** What an extract was made from and how; written beside its JSONL so the shard step can check it. */
+export type ExtractMeta = { source: string; source_modified: string | null; min_scans: number; limit: number | null; rows: number; extracted_at: string };
+export const metaPath = (jsonl: string) => `${jsonl}.meta.json`;
 export type Nutrient = {
   id: string; name: string; unit: 'g' | 'mg' | 'mcg' | 'kcal'; dv: number | null;
   label: 'required' | 'voluntary' | 'extra'; parent?: string; note?: string;

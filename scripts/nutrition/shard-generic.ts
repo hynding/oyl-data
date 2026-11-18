@@ -7,7 +7,8 @@
  *
  * One file per (dataset, source category) — a few dozen per dataset, each a reviewable
  * YAML list sorted by name. The same food often appears in Foundation, SR Legacy and
- * FNDDS; we keep one per normalized description, preferring foundation > sr_legacy > survey.
+ * FNDDS; we keep one per normalized brand + name, preferring foundation > sr_legacy > survey,
+ * except branded (chain) items, where the newer FNDDS wins.
  */
 import fg from 'fast-glob';
 import { createReadStream, mkdirSync, rmSync, writeFileSync } from 'node:fs';
@@ -21,6 +22,8 @@ import {
 const input = opt('in') ?? resolve(CACHE, 'usda.jsonl');
 const outDir = resolve(opt('out') ?? resolve(DOMAIN_DIR, 'foods/generic'));
 const DATASET_RANK: Record<string, number> = { foundation: 0, sr_legacy: 1, survey: 2 };
+/** Chain items change recipes: prefer FNDDS (2024, more portions) over SR Legacy (frozen 2018) when branded. */
+const BRANDED_RANK: Record<string, number> = { survey: 0, foundation: 1, sr_legacy: 2 };
 const FDC_UNIT: Record<string, Nutrient['unit']> = { G: 'g', MG: 'mg', UG: 'mcg', KCAL: 'kcal' };
 
 const { nutrients, categories } = loadRefs();
@@ -39,6 +42,8 @@ const BRAND_CASE: Record<string, string> = {
   "WENDY'S": "Wendy's", "ARBY'S": "Arby's", "CHICK-FIL-A": 'Chick-fil-A', "DOMINO'S": "Domino's", "KELLOGG'S": "Kellogg's",
   "CAMPBELL'S": "Campbell's", 'TACO BELL': 'Taco Bell', 'BURGER KING': 'Burger King', 'PIZZA HUT': 'Pizza Hut', 'SUBWAY': 'Subway',
 };
+/** BRAND_CASE keyed without apostrophes, so FNDDS's "McDonalds" finds "McDonald's". */
+const BRAND_BY_BARE = new Map(Object.entries(BRAND_CASE).map(([k, v]) => [k.replace(/'/g, ''), v]));
 type Row = {
   fdc_id: number; dataset: string; data_type: string; description: string; category: string | null;
   nutrients: { id: number; amount: number; unit: string }[];
@@ -57,7 +62,7 @@ for await (const line of rl) {
   const food = toFood(row);
   if (!food) { skippedNoEnergy++; continue; }
   const key = normalizeName(food.name, food.brand);
-  const rank = DATASET_RANK[row.dataset] ?? 9;
+  const rank = (food.brand ? BRANDED_RANK : DATASET_RANK)[row.dataset] ?? 9;
   const existing = byKey.get(key);
   if (existing && existing.rank <= rank) { dedup++; continue; }
   if (existing) dedup++;
@@ -102,7 +107,7 @@ function toFood(row: Row): Food | null {
   for (const def of nutrients) { const c = chosen.get(def.id); if (c) per100[def.id] = round(c.value, 3); }
   if (!('energy' in per100) && !('fat' in per100 && 'carbohydrate' in per100 && 'protein' in per100)) return null;
 
-  const { name, brand } = splitBrand(row.description);
+  const { name, brand } = row.dataset === 'survey' ? splitTrailingBrand(row.description) : splitBrand(row.description);
   const portions = portionsOf(row.portions);
   let category = matchCategory(row.category);
   if (/\b(fast food|restaurant)\b/i.test(row.description)) category = 'restaurant';
@@ -161,6 +166,18 @@ function splitBrand(description: string): { name: string; brand?: string } {
   const raw = m[1].trim();
   const brand = BRAND_CASE[raw.toUpperCase()] ?? raw.toLowerCase().replace(/(^|[\s\-.])([a-z])/g, (s) => s.toUpperCase());
   return { name: clean(m[2])!, brand };
+}
+
+/**
+ * FNDDS writes branded entries as "Big Mac (McDonalds)" / "Energy drink (Red Bull)". A trailing
+ * parenthetical that starts with a capital is the brand; "(2%)", "(skim)", "(1%)" stay in the name.
+ * Survey only: SR Legacy ends descriptions with "(Includes foods for USDA's …)".
+ */
+function splitTrailingBrand(description: string): { name: string; brand?: string } {
+  const m = description.match(/^(.+?)\s*\(([A-Z][^()]*)\)\s*$/);
+  if (!m) return { name: clean(description) ?? description };
+  const raw = clean(m[2])!;
+  return { name: clean(m[1])!, brand: BRAND_BY_BARE.get(raw.toUpperCase().replace(/'/g, '')) ?? raw };
 }
 
 function normalizeName(name: string, brand?: string): string {

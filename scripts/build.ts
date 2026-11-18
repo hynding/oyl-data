@@ -30,7 +30,10 @@ db.exec('CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT NOT NULL)');
 
 const nutrition = buildNutrition(db);
 
+// The release tag (v<YYYY>.<MM>.<DD>), set by release.yml; absent on local builds so OYL can tell them apart.
+const release = process.env.OYL_DATA_RELEASE;
 const meta = {
+  ...(release && { release }),
   built_at: new Date().toISOString(),
   schema_version: SCHEMA_VERSION,
   domains: {

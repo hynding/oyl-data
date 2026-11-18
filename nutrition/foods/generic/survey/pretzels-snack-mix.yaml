@@ -2841,7 +2841,8 @@
     license: CC0
 - id: fdc:2708291
   kind: generic
-  name: Snack mix, plain (Chex Mix)
+  name: Snack mix, plain
+  brand: Chex Mix
   basis: 100g
   portions:
     - description: 1 cup
